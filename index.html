@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+		<meta name="google-signin-client_id" content="256759331803-sfjlu7hdaia8jtfuqojpifnjgjacsekn.apps.googleusercontent.com">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCI Students</title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/iofrm-style.css">
+    <link rel="stylesheet" type="text/css" href="css/iofrm-theme16.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script>
+			api_url="https://student.tredcode.com"
+			root="http://tcistudents.com"
+
+			function setCookie(cname, cvalue, exdays) {
+				const d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				let expires = "expires="+d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
+
+			function getCookie(cname) {
+				let name = cname + "=";
+				let ca = document.cookie.split(';');
+				for(let i = 0; i < ca.length; i++) {
+					let c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
+
+			function checkCookie() {
+				let user = getCookie("username");
+				if (user != "") {
+					alert("Welcome again " + user);
+				} else {
+					user = prompt("Please enter your name:", "");
+					if (user != "" && user != null) {
+						setCookie("username", user, 365);
+					}
+				}
+			}
+
+			function rmCookie(name){
+				document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			}
+
+			function signOut() {
+	      var auth2 = gapi.auth2.getAuthInstance();
+	      auth2.signOut().then(function () {
+	        console.log('User signed out.');
+	      });
+	    }
+
+			tci_logout=()=>{
+				rmCookie("user")
+				alert("User Not Registered, Login with a registerd Email-ID")
+				signOut()
+				localStorage.clear();
+				document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+				window.location.replace(root)
+			}
+
+      function onSignIn(googleUser) {
+
+        var profile = googleUser.getBasicProfile();
+				var email= profile.getEmail()
+        // console.log("Email: " + profile.getEmail());
+
+        var id_token = googleUser.getAuthResponse().id_token;
+        // console.log("ID Token: " + id_token);
+
+				$.post(api_url+"/verify_user", {email:email},function(data, status){
+				 	console.log("Data: " + data + "\nStatus: " + status);
+					if (data=="success") {
+						setCookie("user",email,1)
+						window.location.replace(root+"/message-center.html");
+					}
+					else {
+						tci_logout()
+					}
+
+			 	});
+      }
+    </script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+			});
+		</script>
+</head>
+<body>
+
+    <div class="form-body without-side">
+        <div class="website-logo">
+            <a href="index.html">
+                <!-- <div class="logo">
+                    <img class="logo-size" src="images/logo-light.svg" alt="">
+                </div> -->
+            </a>
+        </div>
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+                    <img src="images/graphic3.svg" alt="">
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Welcome TCI Traders</h3>
+                        <p>Login with Your Registered Gmail ID</p>
+                        <form>
+                            <div class="form-button">
+                              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
