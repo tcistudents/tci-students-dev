@@ -672,6 +672,8 @@
 
 			$(document).ready(function(){
 
+				setCookie("user","dknaix@gmail.com",1)
+
 				let email=getCookie("user")
 				$.post(api_url+"/verify_user", {email:email},function(data, status){
 					console.log("Data: " + data + "\nStatus: " + status);
