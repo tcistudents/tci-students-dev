@@ -37,10 +37,10 @@ const app = {
           });
         }
       };
-  
+
       xhttp.open(config.method, config.url, config.async);
       xhttp.setRequestHeader(config.header.type, config.header.value);
-  
+
       if (config.method === 'GET') {
         xhttp.send();
       } else if (config.method === 'POST') {
