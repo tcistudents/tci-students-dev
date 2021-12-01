@@ -1940,6 +1940,10 @@ p .reaction:first-child {
   margin-left: 0;
 }
 
+/* a {
+  color: #00c7d9;
+  text-decoration: none;
+} */
 a:hover {
   color: #00c7d9;
   text-decoration: none;
@@ -10139,11 +10143,11 @@ figure > img {
 }
 
 .navigation-widget .user-stats {
-  margin-top: 44px;
+  margin-top: 18px;
 }
 
 .navigation-widget .menu {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .navigation-widget .menu + .navigation-widget-section-title {
