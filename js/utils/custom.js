@@ -2,8 +2,14 @@ function per(num, amount){
   return num*amount/100;
 }
 
+mob_trigger_sidemenu=()=>{
+	$(".navigation-widget-mobile-trigger").trigger("click")
+}
+
 $( document ).ready(function() {
-	  $("body").trigger("click")
-		$("body").trigger("click")
     $(".sidemenu-trigger").trigger("click")
+
+
+
+
 });

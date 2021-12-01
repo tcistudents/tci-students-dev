@@ -14788,10 +14788,10 @@ figure > img {
 }
 
 .header .header-brand .header-brand-text {
-  margin-left: 26px;
+  margin-left: 10px;
   color: #fff;
   font-family: "Titillium Web", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -15806,7 +15806,7 @@ figure > img {
   min-height: 160px;
   padding: 52px 60px 0 200px;
   border-radius: 12px;
-  background: url("../img/banner/banner-bg.jpg") no-repeat center;
+  background: url("../img/banner/banner-bg.png") no-repeat center;
   position: relative;
 }
 

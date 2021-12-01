@@ -163,7 +163,8 @@ app.querySelector('.content-grids', function (el) {
       NAVIGATION WIDGET MOBILE
   -------------------------------*/
   app.querySelector('.navigation-widget-mobile-trigger', function (el) {
-		if ( $(window).width()>680 ) {return}
+		// if ( $(window).width()>680 ) {return}
+		return
     const navigationMobileTrigger = el[0],
           navigationWidgetMobile = document.querySelector('#navigation-widget-mobile'),
           navigationWidgetMobileCloseButton = navigationWidgetMobile.querySelector('.navigation-widget-close-button'),
