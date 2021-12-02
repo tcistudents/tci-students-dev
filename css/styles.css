@@ -1772,9 +1772,14 @@ textarea::placeholder {
 /*--------------------
     MEDIA QUERIES
 --------------------*/
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1700px) {
   .content-grid {
     max-width: 1142px;
+  }
+
+	.grid.grid-3-9, .grid.grid-9-3, .grid.grid-8-4 {
+    grid-template-columns: 100%;
+    grid-template-areas: 'content' 'sidebar';
   }
 }
 

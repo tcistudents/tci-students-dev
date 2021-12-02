@@ -1,7 +1,7 @@
 /*-------------------
     CONTENT GRID
 -------------------*/
-app.querySelector('.content-grid', function (el) {
+app.querySelector('.content-grids', function (el) {
   const sidebar = {
           chat: {
             active: false,
