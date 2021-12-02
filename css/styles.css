@@ -1772,7 +1772,7 @@ textarea::placeholder {
 /*--------------------
     MEDIA QUERIES
 --------------------*/
-@media screen and (max-width: 1700px) {
+@media screen and (max-width: 1750px) {
   .content-grid {
     max-width: 1142px;
   }

@@ -23,7 +23,7 @@ app.querySelector('.content-grids', function (el) {
             availableWidth = document.body.clientWidth - contentGrid.offsetWidth - chatWidth - navigationWidth,
             offsetX = (availableWidth / 2) + navigationWidth;
 
-      contentGrid.style.transform = `translate(${offsetX}px, 0)`;
+      // contentGrid.style.transform = `translate(${offsetX}px, 0)`;
     } else {
       contentGrid.style.transform = `translate(0, 0)`;
     }

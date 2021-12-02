@@ -2289,5 +2289,19 @@
 <script src="js/form/form.utils.js"></script>
 <!-- SVG icons -->
 <script src="js/utils/svg-loader.js"></script>
+
+<script type="text/javascript">
+	// internal ui script
+
+
+	$( document ).ready(function() {
+		if ( $(window).width()>1430 ) {
+			$(".grid.grid-3-3-3").css("grid-template-columns","repeat(auto-fit, 255px)")
+		}
+
+	});
+
+</script>
+
 </body>
 </html>
