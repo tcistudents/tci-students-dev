@@ -2781,7 +2781,7 @@
 	$(document).ready(function(){
 
 		// let email=getCookie("user")
-		let email="dknaix@gmail.com"
+		setCookie("user","dknaix@gmail.com",1)
 
 		$.post(api_url+"/verify_user", {email:email},function(data, status){
 			console.log("Data: " + data + "\nStatus: " + status);
