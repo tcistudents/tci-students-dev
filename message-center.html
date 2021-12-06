@@ -2449,11 +2449,11 @@
 			<!-- only for sm -->
 			<div class="">
 				<h2 class="section-title ml-2 my-1" style="font-size:1.625rem">Important Links</h2>
-				<div class="chat-widget-header rounded" style="background:white;">
+				<div id="link_append" class="chat-widget-header rounded" style="background:white;">
 					<!-- <span class="section-title">Links</span> -->
-					<a href="#">Time Table</a>
-					<br><a href="#">Trading Ebook</a>
-					<br><a href="#">Why Most Traders Fail</a>
+					<div><a href="#">Time Table</a></div>
+					<div><a href="#">Trading Ebook</a></div>
+					<div><a href="#">Why Most Traders Fail</a></div>
 				</div>
 			</div>
 
@@ -2506,36 +2506,36 @@
             <!-- CHAT WIDGET CONVERSATION -->
             <div class="chat-widget-conversation" data-simplebar>
               <!-- CHAT WIDGET SPEAKER -->
+							<div class="msg_append">
 
-              <div class="chat-widget-speaker left">
-								<div class="d-flex">
-									<div class="mt-1 mr-2">
-										<img src="./img/tci_purple.png" height="20" width="20">
-									</div>
-									<div class="">
-										<p class="chat-widget-speaker-message">Welcome Students to your new Interface!</p>
-										<p class="chat-widget-speaker-timestamp">Yesterday at 8:36PM</p>
-									</div>
-								</div>
 
-								<div class="chat-widget-speaker left">
+
+	              <div class="chat-widget-speaker left">
 									<div class="d-flex">
 										<div class="mt-1 mr-2">
 											<img src="./img/tci_purple.png" height="20" width="20">
 										</div>
 										<div class="">
-											<p class="chat-widget-speaker-message">Link for today's 08:00 PM session will be shared few minutes before the meeting.</p>
+											<p class="chat-widget-speaker-message">aWelcome Students to your new Interface!</p>
 											<p class="chat-widget-speaker-timestamp">Yesterday at 8:36PM</p>
 										</div>
 									</div>
+								</div>
 
+									<div class="chat-widget-speaker left">
+										<div class="d-flex">
+											<div class="mt-1 mr-2">
+												<img src="./img/tci_purple.png" height="20" width="20">
+											</div>
+											<div class="">
+												<p class="chat-widget-speaker-message">Link for today's 08:00 PM session will be shared few minutes before the meeting.</p>
+												<p class="chat-widget-speaker-timestamp">Yesterday at 8:36PM</p>
+											</div>
+										</div>
+	              </div>
+	              <!-- /CHAT WIDGET SPEAKER -->
 
-
-
-              </div>
-              <!-- /CHAT WIDGET SPEAKER -->
-
-
+						</div>
 
 
             </div>
@@ -2555,7 +2555,7 @@
 
 <!-- app -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
 <script src="js/utils/page-loader.js"></script>
@@ -2583,6 +2583,230 @@
 <script src="js/utils/svg-loader.js"></script>
 
 <script src="js/utils/custom.js"></script>
+
+
+<script>
+	// cookie fndef script
+	api_url="https://student.tredcode.com"
+	root="http://localhost/tci-students-dev"
+
+	function setCookie(cname, cvalue, exdays) {
+		const d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		let expires = "expires="+d.toUTCString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+
+	function getCookie(cname) {
+		let name = cname + "=";
+		let ca = document.cookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+
+	function checkCookie(name) {
+		let user = getCookie(name);
+		if (user != "") {return true}
+		else {return false}
+	}
+
+	rmCookie=(name)=>{document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";}
+
+	tci_logout=()=>{
+		rmCookie("user")
+		signOut()
+		localStorage.clear();
+		document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+		window.location.replace(root)
+	}
+
+	refresh=()=>{
+		if (checkCookie("user")) {
+			get_link()
+			get_msg()
+		}
+		else {
+			window.location.replace(root);
+		}
+	}
+</script>
+
+<script type="text/javascript">
+
+	detect_acc_type=()=>{
+		let email=getCookie("user")
+		$.post(api_url+"/detect_user" ,{email:email}, function(data, status){
+			if (data=="foundation") {
+				// $("#heading").html("<i class='fas fa-graduation-cap'></i> Foundation Course")
+			}
+			else if (data=="pro") {
+				// $("#heading").html("<i class='fas fa-graduation-cap'></i> Pro Mentorship")
+			}
+			else {}
+		})
+	}
+
+	push_div=(name,link)=>{
+		if (name=="" || link==""){return}
+		// let str='<div class="my-1 clear_m"><a class="h4" href="'+link+'" target="_blank">'+name+'</a></div>'
+		let str='<div><a href="'+link+'">'+name+'</a></div>'
+		$("#link_append").append(str)
+
+		let str_mob='<div><a href="'+link+'" target="_blank"><i class="bx bx-right-arrow-alt"></i>'+name+'</a></div>'
+		$("#link_append_mob").append(str_mob)
+	}
+
+	get_link=()=>{
+		let email=getCookie("user")
+		$.post(api_url+"/get_links" ,{email:email}, function(data, status){
+			console.log();("Data "+data)
+
+			try {
+				$("#link_append div").remove()
+
+				if (data[0][1]!=null && data[0][7]!=null) { push_div(data[0][1],data[0][7]) }
+				if (data[0][2]!=null && data[0][8]!=null) { push_div(data[0][2],data[0][8]) }
+				if (data[0][3]!=null && data[0][9]!=null) { push_div(data[0][3],data[0][9]) }
+				if (data[0][4]!=null && data[0][10]!=null) { push_div(data[0][4],data[0][10]) }
+				if (data[0][5]!=null && data[0][11]!=null) { push_div(data[0][5],data[0][11]) }
+				if (data[0][6]!=null && data[0][12]!=null) { push_div(data[0][6],data[0][12]) }
+			}
+			catch (e){console.log("nulldata");return}
+
+
+			});
+	}
+
+	get_msg=()=>{
+
+		$(".chat-content-leftside").remove()
+
+		let email=getCookie("user")
+		$.post(api_url+"/get_msg",{email:email}, function(data, status){
+			console.log(data)
+			try {
+				let ts=data[0][0]
+			}
+			catch (e){console.log("nullmsg");return}
+
+			// data preprocessing
+			for (var i = 0; i < data.length; i++) {
+				let ts=data[i][0]
+				data[i][0]=moment.unix(ts).format("DD-MMM HH:mm A")
+				data[i][1]=linkify(data[i][1])
+				data[i][1]="<pre class=''>"+data[i][1]+"</pre>"
+			}
+
+			if (data[0].length>=3) {
+				// processing pro table to 2 columns
+				var new_data=[]
+				for (var i = 0; i < data.length; i++) {
+					data[i][1]=data[i][2]
+					data[i][1]=linkify(data[i][1])
+					data[i][1]="<pre class=''>"+data[i][1]+"</pre>"
+					data[i].pop()
+					new_data.push(data[i])
+				}
+				data=new_data
+
+			}
+
+			for (var i = 0; i < data.length; i++) {
+				let time=data[i][0]
+
+				if ($(window).width()>600) {
+					// for dsk
+					var str='<div class="chat-widget-speaker left"><div class="d-flex"><div class="mt-1 mr-2"><img src="./img/tci_purple.png" height="20" width="20">'
+					str+='</div><div class=""><pre class="chat-widget-speaker-message">'+data[i][1]+'</pre><p class="chat-widget-speaker-timestamp">'+data[i][0]+'</p></div></div></div>'
+				}
+				else {
+					// for mob
+					var str='<div class="chat-content-leftside"><div class="d-flex"><div class="flex-grow-1"><div class="d-flex align-items-center"><img class="sender_logo m-1" src="./message-center_files/logo.png" width="48" height="48"><p class="mb-0 chat-time">Admin, '+time+'</p>'
+					str+='</div><pre class="chat-left-msg">'+data[i][1]+'</pre></div></div></div>'
+				}
+
+
+				$('.msg_append').append(str)
+
+
+			}
+ 		});
+	}
+
+	admin_verify=()=>{
+		let email=getCookie("user")
+		$.post(api_url+"/verify_admin",{email:email}, function(data, status){
+			var curr_url=window.location.href
+			curr_url=curr_url.split("/")
+			curr_url=curr_url[curr_url.length-1]
+			if (data=="elite") {
+				if (curr_url=="message-center.html") {window.location.replace(root+"/admin/admin_mgmt.html")}
+				else {}
+			}
+			else if (data=="pro") {
+				if (curr_url=="admin_p.html") {}
+				else {window.location.replace(root+"/admin/admin_p.html")}
+			}
+			else if (data=="foundation") {
+				if (curr_url=="admin_b.html") {}
+				else {window.location.replace(root+"/admin/admin_b.html")}
+			}
+			else {
+				if (curr_url=="message-center.html") {}
+				else {window.location.replace(root+"message-center.html")}
+			}
+		});
+	}
+
+	function linkify(text) {
+		var urlRegex = /(https?:\/\/[^\s]+)/g;
+		return text.replace(urlRegex, function(url) {
+			return '<a href="'+url+'" target="_blank">' + url + '</a>';
+		})
+		// or alternatively
+		// return text.replace(urlRegex, '<a href="$1">$1</a>')
+	}
+
+	function per(num, amount){return num*amount/100;}
+
+
+	$(document).ready(function(){
+
+		// let email=getCookie("user")
+		let email="dknaix@gmail.com"
+
+		$.post(api_url+"/verify_user", {email:email},function(data, status){
+			console.log("Data: " + data + "\nStatus: " + status);
+			if (data=="success") {
+				$(".user-name").text(email)
+			}
+			else {
+			tci_logout()
+			}
+
+		});
+
+		// admin_verify()
+		// detect_acc_type()
+		// refresh()
+		get_link()
+		get_msg()
+
+
+		// history.pushState({1: 'message-center'}, 'message-center', '/message-center');
+		// setInterval(function(){ refresh() }, 180000);
+		// setInterval(function(){ $('.signout_btn').trigger('click'); }, 1800000);
+	});
+</script>
+
 
 </body>
 </html>
