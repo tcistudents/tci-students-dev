@@ -4,7 +4,7 @@
 app.querySelector('.form-input', function (elements) {
   for (const el of elements) {
     if (el.classList.contains('always-active')) continue;
-    
+
     const input = el.querySelector('input'),
           textarea = el.querySelector('textarea'),
           activeClass = 'active';
@@ -21,6 +21,7 @@ app.querySelector('.form-input', function (elements) {
 
       inputItem.addEventListener('blur', function () {
         if (inputItem.value === '') {
+					if(inputItem.id=="ip_img"){return}
           el.classList.remove(activeClass);
         }
       });

@@ -1209,8 +1209,8 @@
                 <div class="form-item">
                   <!-- FORM INPUT -->
                   <div class="form-input small">
-                    <label for="billing-first-name">First Name</label>
-                    <input type="text" id="billing-first-name" name="billing_first_name">
+                    <label for="billing-first-name">Title of your Post</label>
+                    <input type="text" id="ip_title">
                   </div>
                   <!-- /FORM INPUT -->
                 </div>
@@ -1229,11 +1229,11 @@
                   <!-- FORM SELECT -->
                   <div class="form-select">
                     <label for="billing-city">Select Tag</label>
-                    <select id="billing-city" name="billing_city">
-                      <option value="0">Pnl</option>
-											<option value="1">Investment</option>
-											<option value="1">Tool</option>
-											<option value="1">Trading</option>
+                    <select id="ip_tag" name="billing_city">
+                      <option value="pnl">Pnl</option>
+											<option value="investment">Investment</option>
+											<option value="tool">Tool</option>
+											<option value="trading">Trading</option>
                     </select>
                     <!-- FORM SELECT ICON -->
                     <svg class="form-select-icon icon-small-arrow">
@@ -1250,7 +1250,7 @@
                   <!-- FORM INPUT -->
                   <div class="form-input small active">
                     <label for="billing-zip-code">Upload image if any *</label>
-                    <input type="file" id="billing-zip-code" name="billing_zip_code" style="padding:10px;">
+                    <input type="file" id="ip_img" style="padding:10px;">
                   </div>
                   <!-- /FORM INPUT -->
                 </div>
@@ -1264,7 +1264,7 @@
                 <div class="form-item">
                   <!-- FORM INPUT -->
                   <div class="form-input small medium-textarea">
-                    <textarea id="billing-details" name="billing_details" placeholder="Write any additional details here..."></textarea>
+                    <textarea id="ip_desc" name="billing_details" placeholder="Your Content goes here..."></textarea>
                   </div>
                   <!-- /FORM INPUT -->
                 </div>
@@ -1291,6 +1291,7 @@
   <!-- /CONTENT GRID -->
 
 <!-- app -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
 <script src="js/utils/page-loader.js"></script>
@@ -1314,5 +1315,53 @@
 <script src="js/form/form.utils.js"></script>
 <!-- SVG icons -->
 <script src="js/utils/svg-loader.js"></script>
+
+<script type="text/javascript">
+
+	upload_post=()=>{
+		var title=$("#ip_title").val()
+		var tag=$("#ip_tag").val()
+		var description=$("#ip_desc").val()
+		var email="harishwadhwa1994@gmail.com"
+		// console.log(title,tag,description)
+
+		
+
+		$.post(api_url+"/user_add_post" ,{email:"harishwadhwa1994@gmail.com",title:title,description:description,tag:tag}, function(data, status){
+			console.log("Data "+data)
+	 	});
+
+		if ($("#ip_img").val()!="") {
+
+			var formData = new FormData();
+	    formData.append('file', $('#ip_img')[0].files[0]);
+	    $.ajax({
+		    type: "POST",
+		    url: api_url+'/user_add_post_img',
+		    data: formData,
+				async: false,
+		    processData: false, // tell jQuery not to process the data
+		    contentType: false, // tell jQuery not to set contentType
+		    success: function (data) {
+		        console.log(data);
+		    },
+		    error: function (xhr, ajaxOptions, thrownError) {
+		    }
+	    })
+
+		}
+
+
+	}
+
+
+	$( document ).ready(function() {
+		console.log("Ready!")
+		api_url="http://127.0.0.1:5000"
+
+
+	});
+</script>
+
 </body>
 </html>
