@@ -1111,7 +1111,7 @@
 		let email=getCookie("user")
 		$.post(api_url+"/detect_user" ,{email:email}, function(data, status){
 			if (data=="foundation") {
-				$("##acc_type,#acc_type2").html("<i class='fas fa-graduation-cap'></i> Foundation Course")
+				$("#acc_type,#acc_type2").html("<i class='fas fa-graduation-cap'></i> Foundation Course")
 			}
 			else if (data=="pro") {
 				$("#acc_type,#acc_type2").html("<i class='fas fa-graduation-cap'></i> Pro Mentorship")
