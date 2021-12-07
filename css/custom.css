@@ -11,9 +11,13 @@
 	cursor: pointer;
 }
 
+.msg_links{
+	font-weight: 600;
+	color:#00c7d9;
+	text-decoration:none;
+}
 
-@media only screen and (max-width: 600px) {
-  .content-grids{
-    padding-top:40px !important;
-  }
+.my_pre_msg{
+	color: #3e3f5e;
+  font-family: "Rajdhani", sans-serif;
 }
