@@ -990,7 +990,7 @@
               </div>
 
 							<div class="form-row">
-								<p class="button primary" style="width:200px;">Create Post!</p>
+								<p class="button primary" style="width:200px;" onclick="upload_post()">Create Post!</p>
 							</div>
               <!-- /FORM ROW -->
             </form>
@@ -1043,31 +1043,34 @@
 		var email="harishwadhwa1994@gmail.com"
 		// console.log(title,tag,description)
 
-
-
-		$.post(api_url+"/user_add_post" ,{email:"harishwadhwa1994@gmail.com",title:title,description:description,tag:tag}, function(data, status){
-			console.log("Data "+data)
-	 	});
-
-		if ($("#ip_img").val()!="") {
-
-			var formData = new FormData();
-	    formData.append('file', $('#ip_img')[0].files[0]);
-	    $.ajax({
-		    type: "POST",
-		    url: api_url+'/user_add_post_img',
-		    data: formData,
-				async: false,
-		    processData: false, // tell jQuery not to process the data
-		    contentType: false, // tell jQuery not to set contentType
-		    success: function (data) {
-		        console.log(data);
-		    },
-		    error: function (xhr, ajaxOptions, thrownError) {
-		    }
-	    })
-
+		// input validation
+		if (title=="" || description=="") {
+			alert("Please Enter all fields!")
 		}
+
+		var filename=$('#ip_img').val()
+		filename=(filename.split("\\"))[2]
+
+		var formData = new FormData();
+    formData.append('file', $('#ip_img')[0].files[0]);
+		formData.append('title',title );
+		formData.append('tag', tag);
+		formData.append('description',description );
+		formData.append('email',email );
+		formData.append('filename',filename );
+    $.ajax({
+	    type: "POST",
+	    url: api_url+'/user_add_post',
+	    data: formData,
+	    processData: false, // tell jQuery not to process the data
+	    contentType: false, // tell jQuery not to set contentType
+	    success: function (data) {
+	        console.log(data);
+	    },
+	    error: function (xhr, ajaxOptions, thrownError) {
+	    }
+    })
+
 
 
 	}
@@ -1076,6 +1079,33 @@
 	$( document ).ready(function() {
 		console.log("Ready!")
 		api_url="http://127.0.0.1:5000"
+
+		$("input[type='file']").on("change", function () {
+			try {
+				if(this.files[0].size > 2000000) {
+					alert("Please upload file less than 2MB. Thanks!!");
+					$(this).val('');
+				}
+			}
+			catch (e) {
+				console.log("File Removed!")
+				return
+			}
+
+
+			var allowed_ext=['jpg','png','jpeg']
+			var curr_ext=$("#ip_img").val()
+			curr_ext = curr_ext.split('.').pop();
+			console.log("Extension:"+curr_ext)
+			if (allowed_ext.includes(curr_ext) ) {
+				console.log("Ext allowed")
+			}
+			else {
+				alert("Please upload a image only!")
+				$(this).val('');
+			}
+
+		});
 
 
 	});

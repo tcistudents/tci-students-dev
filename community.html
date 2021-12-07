@@ -82,7 +82,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="newsfeed.html" data-title="Message Center">
+        <a class="menu-item-link text-tooltip-tfr" href="./message-center.html" data-title="Message Center">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
@@ -96,7 +96,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item active">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="marketplace.html" data-title="Community">
+        <a class="menu-item-link text-tooltip-tfr" href="./community.html" data-title="Community">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-marketplace">
             <use xlink:href="#svg-marketplace"></use>
@@ -110,7 +110,7 @@
 			<!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="overview.html" data-title="Live Sessions">
+        <a class="menu-item-link text-tooltip-tfr" href="./404.html" data-title="Live Sessions">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
@@ -213,7 +213,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="#">
+        <a class="menu-item-link" href="./message-center.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
@@ -228,7 +228,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item active">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="#">
+        <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-marketplace">
             <use xlink:href="#svg-marketplace"></use>
@@ -243,7 +243,7 @@
 			<!-- MENU ITEM -->
 			<li class="menu-item">
 				<!-- MENU ITEM LINK -->
-				<a class="menu-item-link" href="#">
+				<a class="menu-item-link" href="./404.html">
 					<!-- MENU ITEM LINK ICON -->
 					<svg class="menu-item-link-icon icon-overview">
 						<use xlink:href="#svg-overview"></use>
@@ -325,7 +325,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="newsfeed.html">
+        <a class="menu-item-link" href="./message-center.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
@@ -340,7 +340,7 @@
 			<!-- MENU ITEM -->
       <li class="menu-item active">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="marketplace.html">
+        <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-marketplace">
             <use xlink:href="#svg-marketplace"></use>
@@ -355,7 +355,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="groups.html">
+        <a class="menu-item-link" href="./404.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
@@ -838,7 +838,7 @@
       <div class="section-header-actions">
 
 			  <!-- SECTION HEADER SUBSECTION -->
-      	<label  class="new_post_btn">+ Create New Post</label>
+      	<label class="new_post_btn" onclick="redirect('community-new-post.html')">+ Create New Post</label>
         <!-- /SECTION HEADER SUBSECTION -->
 
 
@@ -848,7 +848,7 @@
     <!-- /SECTION HEADER -->
 
     <!-- SECTION FILTERS BAR -->
-    <div class="section-filters-bar v4">
+    <div class="section-filters-bar v4 d-none">
 
       <!-- SECTION FILTERS BAR ACTIONS -->
       <div class="section-filters-bar-actions">
@@ -899,7 +899,7 @@
     <!-- /SECTION FILTERS BAR -->
 
     <!-- GRID -->
-    <div class="grid grid-3-9 small-space">
+    <div class="grid grid-3-9 medium-space">
 
 
       <!-- MARKETPLACE CONTENT -->
@@ -1864,6 +1864,10 @@
 	open_post=(ts)=>{
 		sessionStorage.setItem("open_post",ts);
 		// code to redirect to community read post page
+	}
+
+	redirect=(link)=>{
+		window.location.href = link
 	}
 
 	get_all_post=()=>{
