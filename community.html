@@ -1854,7 +1854,7 @@
 			for (var i = 0; i < data.length; i++) {
 				console.log(data[i])
 				var str='<div class="product-preview"><a href=""><figure class="product-preview-image liquid"><img alt="image" src="'+data[i][5]+'"></figure></a>'
-				str+='<div class="product-preview-info"><p class="text-sticker"><span class="highlighted">❤</span> '+data[i][6]+'</p>'
+				str+='<div class="product-preview-info"><p class="text-sticker pointer noselect" onclick="like_toggle(this)"><span class="hrt">❤</span> <span class="hrt_count">'+data[i][6]+'</span></p>'
 				str+='<p class="product-preview-title"><a href="">'+data[i][1]+'</a></p><p class="product-preview-category digital"><a href="marketplace-category.html">'+data[i][4]+'</a></p>'
 				str+='<p class="product-preview-text">'+data[i][2]+'</p>	</div></div>'
 
@@ -1863,6 +1863,26 @@
 
 
 		});
+	}
+
+	like_toggle=(el)=>{
+		$(el).find(".hrt").toggleClass("highlighted")
+		if ( $(el).find(".highlighted").length ) {
+			// console.log("Liked")
+			let count=$(el).find(".hrt_count").text()
+			count=parseInt(count)
+			count+=1
+			count=$(el).find(".hrt_count").text(count)
+
+		}
+		else {
+			console.log("offlight")
+			let count=$(el).find(".hrt_count").text()
+			count=parseInt(count)
+			count-=1
+			count=$(el).find(".hrt_count").text(count)
+		}
+
 	}
 
 	detect_acc_type=()=>{
