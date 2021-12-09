@@ -11,6 +11,22 @@
 	cursor: pointer;
 }
 
+#read_post_box{
+	display:none;
+}
+
+/* bluedot */
+.tag_dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #3e3f5e;
+  position: absolute;
+  top: 1px;
+  left: 0;
+}
+
 .msg_links{
 	font-weight: 600;
 	color:#00c7d9;

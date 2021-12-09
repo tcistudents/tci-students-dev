@@ -871,6 +871,7 @@
                     <label for="billing-city">Select Tag</label>
                     <select id="ip_tag" name="billing_city">
                       <option value="pnl">Pnl</option>
+											<option value="chart">Chart</option>
 											<option value="investment">Investment</option>
 											<option value="tool">Tool</option>
 											<option value="trading">Trading</option>
@@ -1016,7 +1017,7 @@
 		var title=$("#ip_title").val()
 		var tag=$("#ip_tag").val()
 		var description=$("#ip_desc").val()
-		var email="harishwadhwa1994@gmail.com"
+		var email=getCookie("user")
 		// console.log(title,tag,description)
 
 		// input validation
