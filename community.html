@@ -919,7 +919,7 @@
     <!-- /SECTION HEADER -->
 
     <!-- SECTION FILTERS BAR -->
-    <div class="section-filters-bar v4 d-none">
+    <div class="section-filters-bar v4">
 
       <!-- SECTION FILTERS BAR ACTIONS -->
       <div class="section-filters-bar-actions">
@@ -931,8 +931,13 @@
             <div class="form-select small">
               <label for="items-filter-category">Filter By</label>
               <select id="items-filter-category" name="items_filter_category">
-                <option value="0">Date Published</option>
-                <option value="1">Price</option>
+                <option value="all">All Categories</option>
+                <option value="pnl">Pnl</option>
+								<option value="chart">Chart</option>
+								<option value="investment">Investment</option>
+								<option value="tool">Tool</option>
+								<option value="trading">Trading</option>
+
               </select>
               <!-- FORM SELECT ICON -->
               <svg class="form-select-icon icon-small-arrow">
@@ -942,23 +947,10 @@
             </div>
             <!-- /FORM SELECT -->
 
-            <!-- FORM SELECT -->
-            <div class="form-select small">
-              <label for="items-filter-order">Order By</label>
-              <select id="items-filter-order" name="items_filter_order">
-                <option value="0">Descending</option>
-                <option value="1">Ascending</option>
-              </select>
-              <!-- FORM SELECT ICON -->
-              <svg class="form-select-icon icon-small-arrow">
-                <use xlink:href="#svg-small-arrow"></use>
-              </svg>
-              <!-- /FORM SELECT ICON -->
-            </div>
-            <!-- /FORM SELECT -->
+
 
             <!-- BUTTON -->
-            <button class="button secondary">Apply Filters</button>
+            <label class="button secondary" onclick="get_all_posts()">Apply Filters</label>
             <!-- /BUTTON -->
           </div>
           <!-- /FORM ITEM -->
@@ -977,6 +969,17 @@
       <div class="marketplace-content">
         <!-- GRID -->
         <div class="grid grid-3-3-3 centered" id="post_append">
+
+					<div class="page-loader-indicator loader-bars" id="loadbars">
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			      <div class="loader-bar"></div>
+			    </div>
 
 				  <!-- PRODUCT PREVIEW -->
           <div class="product-preview">
@@ -1560,11 +1563,13 @@
 
 	}
 
-	get_all_post=()=>{
+	get_all_posts=(filter="all")=>{
 
-		$("#post_append div").remove() //just temp remove me when all done
+		var filter=$("#items-filter-category").val()
+
+		$("#post_append .product-preview").remove() //just temp remove me when all done
 		let email=getCookie("user")
-		$.post(api_url+"/get_all_posts" ,{email:email}, function(data, status){
+		$.post(api_url+"/get_all_posts" ,{email:email,filter:filter}, function(data, status){
 			// console.log("Data "+data)
 
 			// write a msg shortner
@@ -1581,7 +1586,7 @@
 
 				$("#post_append").append(str)
 			}
-
+			$("#loadbars").hide()
 
 		});
 	}
@@ -1663,7 +1668,7 @@
 		detect_acc_type()
 		// refresh()
 		get_stats()
-		get_all_post()
+		get_all_posts()
 
 
 		// setInterval(function(){ refresh() }, 180000);
