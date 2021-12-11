@@ -724,7 +724,7 @@
   <!-- /FLOATY BAR -->
 
   <!-- CONTENT GRID -->
-  <div class="content-grid">
+  <div class="content-grid pb-0">
     <!-- SECTION BANNER -->
     <div class="section-banner">
       <!-- SECTION BANNER ICON -->
@@ -1362,7 +1362,7 @@
         <!-- /GRID -->
 
         <!-- SECTION PAGER BAR WRAP -->
-        <div class="section-pager-bar-wrap align-right">
+        <div class="section-pager-bar-wrap align-center">
           <!-- SECTION PAGER BAR -->
           <div class="section-pager-bar">
             <!-- SECTION PAGER -->
@@ -1414,6 +1414,12 @@
                 <!-- /SECTION PAGER ITEM TEXT -->
               </div>
               <!-- /SECTION PAGER ITEM -->
+							<div class="section-pager-item">
+                <!-- SECTION PAGER ITEM TEXT -->
+                <p class="section-pager-item-text">06</p>
+                <!-- /SECTION PAGER ITEM TEXT -->
+              </div>
+
             </div>
             <!-- /SECTION PAGER -->
 
@@ -1547,9 +1553,9 @@
 
 		let email=getCookie("user")
 		$.post(api_url+"/get_post" ,{email:email,timestamp:ts}, function(data, status){
-			console.log("Data "+data)
+			// console.log("Data "+data)
 			let ts=moment.unix(data[0][0]).format("DD-MMM HH:mm A")
-			console.log("ts "+ts)
+			// console.log("ts "+ts)
 
 			$("#post_time_push").text(ts)
 			$("#post_topic_push").text(data[0][1])
@@ -1563,22 +1569,49 @@
 
 	}
 
-	get_all_posts=(filter="all")=>{
+	get_total_count=()=>{
+		var email=getCookie("user")
+		var filter=$("#items-filter-category").val()
+		var offset_arr=[]
 
+		$.ajaxSetup({async:false});
+		$.post(api_url+"/get_all_posts_count", {email:email,filter:filter},function(data, status){
+			// console.log("Data: " + data + "\nStatus: " + status);
+			// pagination processing, will return offset_arr
+			var total_post=JSON.parse(data[0])
+			let total_pages=Math.ceil(total_post/15)
+
+			for (var i = 0; i < total_pages; i++) {
+				offset_arr.push(15*i)
+			}
+
+		});
+
+		return offset_arr
+	}
+
+
+	get_all_posts=(filter="all",pgno=1)=>{
+
+		var email=getCookie("user")
 		var filter=$("#items-filter-category").val()
 
+		var offset_arr=get_total_count()
+		var offset=offset_arr[pgno-1]
+
+		$.ajaxSetup({async:true});
 		$("#post_append .product-preview").remove() //just temp remove me when all done
-		let email=getCookie("user")
-		$.post(api_url+"/get_all_posts" ,{email:email,filter:filter}, function(data, status){
+		$.post(api_url+"/get_all_posts" ,{email:email,filter:filter,offset:offset}, function(data, status){
 			// console.log("Data "+data)
 
 			// write a msg shortner
-			liked_posts=JSON.parse(data[data.length-1])
-			var spl=""
 
+			var liked_posts=JSON.parse(data[data.length-1])
+
+			var spl=""
 			for (var i = 0; i < data.length-1; i++) {
-				if ( liked_posts.includes(data[i][0]) ) {console.log("already");spl="highlighted"}
-				else {spl="";console.log("notliked "+data[i][0]);}
+				if ( liked_posts.includes(data[i][0]) ) {spl="highlighted"}
+				else {spl=""}
 				var str='<div class="product-preview"><a href=""><figure name="'+data[i][0]+'" onclick=alert(this.name) class="product-preview-image liquid"><img alt="image" src="'+data[i][5]+'"></figure></a>'
 				str+='<div class="product-preview-info"><p class="text-sticker pointer noselect" name="'+data[i][0]+'" onclick="like_toggle(this)"><span class="hrt '+spl+'">❤</span> <span class="hrt_count">'+data[i][6]+'</span></p>'
 				str+='<p class="product-preview-title"><a name="'+data[i][0]+'" href="javascript:;" onclick=get_single_post(this.name)>'+data[i][1]+'</a></p><p class="product-preview-category digital"><a href="javascript:;">'+data[i][4]+'</a></p>'
@@ -1602,15 +1635,15 @@
 
 			let email=getCookie("user")
 			let ts=$(el).attr("name")
-			console.log(ts)
+			// console.log(ts)
 			$.post(api_url+"/like", {email:email,timestamp:ts},function(data, status){
-				console.log("Data: " + data + "\nStatus: " + status);
+				// console.log("Data: " + data + "\nStatus: " + status);
 
 			});
 
 		}
 		else {
-			console.log("offlight")
+			// console.log("offlight")
 			let count=$(el).find(".hrt_count").text()
 			count=parseInt(count)
 			count-=1
@@ -1635,7 +1668,7 @@
 	get_stats=()=>{
 		let email=getCookie("user")
 		$.post(api_url+"/user_stats" ,{email:email}, function(data, status){
-			console.log(data)
+			// console.log(data)
 			data=eval(data)
 			$("#acc_posts").text(data[0])
 			$("#acc_likes").text(data[1])
@@ -1647,6 +1680,9 @@
 			$(".grid.grid-3-3-3").css("grid-template-columns","repeat(auto-fit, 255px)")
 			// var getpost_id=sessionStorage.getItem("getpost");
 		}
+
+
+		// global decoration
 
 		setCookie("user","harishwadhwa1994@gmail.com",1) //remove me setcookie not this page job
 		let email=getCookie("user")
