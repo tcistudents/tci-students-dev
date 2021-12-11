@@ -1366,59 +1366,28 @@
           <!-- SECTION PAGER BAR -->
           <div class="section-pager-bar">
             <!-- SECTION PAGER -->
-            <div class="section-pager">
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item active">
-                <!-- SECTION PAGER ITEM TEXT -->
+            <div class="section-pager" id="strip_append">
+
+              <!-- <div class="section-pager-item active">
                 <p class="section-pager-item-text">01</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
               </div>
-              <!-- /SECTION PAGER ITEM -->
 
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">02</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
-              </div>
-              <!-- /SECTION PAGER ITEM -->
-
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">03</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
-              </div>
-              <!-- /SECTION PAGER ITEM -->
-
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">04</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
-              </div>
-              <!-- /SECTION PAGER ITEM -->
-
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">05</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
-              </div>
-              <!-- /SECTION PAGER ITEM -->
-
-              <!-- SECTION PAGER ITEM -->
-              <div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">06</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
-              </div>
-              <!-- /SECTION PAGER ITEM -->
 							<div class="section-pager-item">
-                <!-- SECTION PAGER ITEM TEXT -->
-                <p class="section-pager-item-text">06</p>
-                <!-- /SECTION PAGER ITEM TEXT -->
+								<p class="section-pager-item-text">02</p>
+							</div>
+
+							<div class="section-pager-item">
+                <p class="section-pager-item-text">03</p>
               </div>
+
+							<div class="section-pager-item">
+                <p class="section-pager-item-text">04</p>
+              </div>
+
+
+              <div class="section-pager-item">
+                <p class="section-pager-item-text">05</p>
+              </div> -->
 
             </div>
             <!-- /SECTION PAGER -->
@@ -1591,13 +1560,16 @@
 	}
 
 
-	get_all_posts=(filter="all",pgno=1)=>{
+	get_all_posts=(pgno=1)=>{
 
 		var email=getCookie("user")
 		var filter=$("#items-filter-category").val()
 
+		// get count
 		var offset_arr=get_total_count()
 		var offset=offset_arr[pgno-1]
+
+		gen_pagination_strip(pgno,offset_arr) //make me async
 
 		$.ajaxSetup({async:true});
 		$("#post_append .product-preview").remove() //just temp remove me when all done
@@ -1622,6 +1594,45 @@
 			$("#loadbars").hide()
 
 		});
+	}
+
+	gen_paginator_arr=(sel,len)=>{
+		return [2,3,4,5,6]
+	}
+
+	gen_pagination_strip=(pg_selected,offset_arr)=>{
+
+		$(".section-pager-item").remove()
+		var len=offset_arr.length
+		if (len==1) { $(".section-pager-bar").css("width","180px") }
+		else if (len==2) { $(".section-pager-bar").css("width","230px") }
+		else if (len==3) { $(".section-pager-bar").css("width","270px") }
+		else if (len==4) { $(".section-pager-bar").css("width","320px") }
+		else if (len>=5) { $(".section-pager-bar").css("width","370px") }
+
+
+		var pgno=0
+
+		for (var i = 0; i < offset_arr.length; i++) {
+
+			pgno=i+1
+
+			var str='<div class="section-pager-item" onclick="get_all_posts('+pgno+')"><p class="section-pager-item-text">'+pgno+'</p></div>'
+			$("#strip_append").append(str)
+
+		}
+		// var display=""
+		// var x=gen_paginator_arr()
+		// for (var i = 0; i < offset_arr.length; i++) {
+		//
+		//
+		// 	if (x.includes(i)) {
+		//
+		//
+		// 	}
+		// 	else{ $("section-pager-item:eq()").hide() }
+		// }
+
 	}
 
 	like_toggle=(el)=>{
