@@ -379,7 +379,7 @@
     <!-- /NAVIGATION WIDGET SECTION TITLE -->
 
     <!-- NAVIGATION WIDGET SECTION LINK -->
-    <a class="navigation-widget-section-link" href="hub-profile-info.html">Profile Info</a>
+    <a class="navigation-widget-section-link" href="./profile.html">Profile Info</a>
     <!-- /NAVIGATION WIDGET SECTION LINK -->
 
 
@@ -640,7 +640,7 @@
           <!-- /DROPDOWN NAVIGATION CATEGORY -->
 
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-info.html">Profile Info</a>
+          <a class="dropdown-navigation-link" href="./profile.html">Profile Info</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
 
           <!-- DROPDOWN NAVIGATION BUTTON -->
@@ -753,14 +753,20 @@
 
 
                 <!-- USER STATUS TITLE -->
-                <p class="user-status-title medium"><a class="bold" href="profile-timeline.html"><i class="fas fa-user-graduate"></i> Anonymous Student</a></p>
+                <p class="user-status-title medium"><a class="bold" href="javascript:;"><i class="fas fa-user-graduate"></i> TCI Student</a></p>
                 <!-- /USER STATUS TITLE -->
 
                 <!-- USER STATUS TEXT -->
-                <p class="user-status-text small" id="post_time_push">39 minutes ago</p>
+                <p class="user-status-text small" id="post_time_push">47 minutes ago</p>
                 <!-- /USER STATUS TEXT -->
               </div>
               <!-- /USER STATUS -->
+
+							<div class="text-center post_img_container py-2 mb-2">
+								<a id="post_img_a" href="#" target="_blank">
+									<img id="post_img" src="">
+								</a>
+							</div>
 
 							<!-- WIDGET BOX STATUS TEXT -->
 							<p class="widget-box-status-text font-weight-bold" id="post_topic_push">Topic of Post</p>
@@ -1529,6 +1535,8 @@
 			$("#post_time_push").text(ts)
 			$("#post_topic_push").text(data[0][1])
 			$("#post_msg_push").text(data[0][2])
+			$("#post_img").attr("src",data[0][5])
+			$("#post_img_a").attr("href",data[0][5])
 			$("#post_likes_push").text(data[0][6])
 
 		});
@@ -1560,6 +1568,19 @@
 	}
 
 
+	shorten=(text, length=80)=> {
+		if (text == null) {
+		    return "";
+		}
+		if (text.length <= length) {
+		    return text;
+		}
+	  text = text.substring(0, length);
+	  last = text.lastIndexOf(" ");
+	  text = text.substring(0, last);
+	  return text + "...";
+	}
+
 	get_all_posts=(pgno=1)=>{
 
 		var email=getCookie("user")
@@ -1576,7 +1597,7 @@
 		$.post(api_url+"/get_all_posts" ,{email:email,filter:filter,offset:offset}, function(data, status){
 			// console.log("Data "+data)
 
-			// write a msg shortner
+
 
 			var liked_posts=JSON.parse(data[data.length-1])
 
@@ -1584,9 +1605,12 @@
 			for (var i = 0; i < data.length-1; i++) {
 				if ( liked_posts.includes(data[i][0]) ) {spl="highlighted"}
 				else {spl=""}
-				var str='<div class="product-preview"><a href=""><figure name="'+data[i][0]+'" onclick=alert(this.name) class="product-preview-image liquid"><img alt="image" src="'+data[i][5]+'"></figure></a>'
+
+				data[i][2]=shorten(data[i][2])
+
+				var str='<div class="product-preview"><a href="javascript:;" name="'+data[i][0]+'" onclick=get_single_post(this.name)><figure class="product-preview-image liquid"><img alt="image" src="'+data[i][5]+'"></figure></a>'
 				str+='<div class="product-preview-info"><p class="text-sticker pointer noselect" name="'+data[i][0]+'" onclick="like_toggle(this)"><span class="hrt '+spl+'">❤</span> <span class="hrt_count">'+data[i][6]+'</span></p>'
-				str+='<p class="product-preview-title"><a name="'+data[i][0]+'" href="javascript:;" onclick=get_single_post(this.name)>'+data[i][1]+'</a></p><p class="product-preview-category digital"><a href="javascript:;">'+data[i][4]+'</a></p>'
+				str+='<p class="product-preview-title"><a name="'+data[i][0]+'" href="javascript:;" onclick=get_single_post(this.name)>'+data[i][1]+'</a></p><p class="product-preview-category digital"><a href="javascript:;" name="'+data[i][0]+'" onclick=get_single_post(this.name) >'+data[i][4]+'</a></p>'
 				str+='<p class="product-preview-text">'+data[i][2]+'</p>	</div></div>'
 
 				$("#post_append").append(str)
