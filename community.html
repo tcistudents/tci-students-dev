@@ -1596,8 +1596,19 @@
 		});
 	}
 
-	gen_paginator_arr=(sel,len)=>{
-		return [2,3,4,5,6]
+	gen_paginator_arr=(sel,pg_arr)=>{
+		var length=pg_arr.length
+		// convert offset_arr to pgno_arr
+		for (var i = 0; i < pg_arr.length; i++) {pg_arr[i]=i+1}
+
+		if (length>5) {
+			// console.log("more that 5")
+			// check start and ending spl position
+			if (sel<=3) {return [1,2,3,4,5]}
+			if (sel>=length-2) {return [ pg_arr[length-5],pg_arr[length-4],pg_arr[length-3],pg_arr[length-2],pg_arr[length-1] ] }
+			else {return [sel-2,sel-1,sel,sel+1,sel+2]}
+		}
+		else {return pg_arr}
 	}
 
 	gen_pagination_strip=(pg_selected,offset_arr)=>{
@@ -1608,7 +1619,7 @@
 		else if (len==2) { $(".section-pager-bar").css("width","230px") }
 		else if (len==3) { $(".section-pager-bar").css("width","270px") }
 		else if (len==4) { $(".section-pager-bar").css("width","320px") }
-		else if (len>=5) { $(".section-pager-bar").css("width","370px") }
+		else if (len>=5) { $(".section-pager-bar").css("width","380px") }
 
 
 		var pgno=0
@@ -1617,22 +1628,17 @@
 
 			pgno=i+1
 
-			var str='<div class="section-pager-item" onclick="get_all_posts('+pgno+')"><p class="section-pager-item-text">'+pgno+'</p></div>'
+			var str='<div class="section-pager-item" id="'+pgno+'_page" onclick="get_all_posts('+pgno+')" style="display:none"><p class="section-pager-item-text">'+pgno+'</p></div>'
 			$("#strip_append").append(str)
 
 		}
-		// var display=""
-		// var x=gen_paginator_arr()
-		// for (var i = 0; i < offset_arr.length; i++) {
-		//
-		//
-		// 	if (x.includes(i)) {
-		//
-		//
-		// 	}
-		// 	else{ $("section-pager-item:eq()").hide() }
-		// }
-
+		let display_arr=gen_paginator_arr(pg_selected,offset_arr)
+		let temp=""
+		for (var i = 0; i < display_arr.length; i++) {
+			temp="#"+display_arr[i]+"_page"
+			$(temp).show()
+			console.log("showing "+temp)
+		}
 	}
 
 	like_toggle=(el)=>{
