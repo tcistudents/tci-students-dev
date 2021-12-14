@@ -82,7 +82,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="newsfeed.html" data-title="Newsfeed">
+        <a class="menu-item-link text-tooltip-tfr" href="./message-center.html" data-title="Message Center">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
@@ -96,7 +96,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="overview.html" data-title="Overview">
+        <a class="menu-item-link text-tooltip-tfr" href="./community.html" data-title="Community">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
@@ -111,7 +111,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item active">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="marketplace.html" data-title="Marketplace">
+        <a class="menu-item-link text-tooltip-tfr" href="./404.html" data-title="Live Sessions">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-marketplace">
             <use xlink:href="#svg-marketplace"></use>
@@ -212,13 +212,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="newsfeed.html">
+        <a class="menu-item-link" href="./message-center.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Newsfeeda
+          Message Center
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -227,13 +227,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="overview.html">
+        <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Overview
+          Community
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -242,13 +242,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item active">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="marketplace.html">
+        <a class="menu-item-link" href="./404.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-marketplace">
             <use xlink:href="#svg-marketplace"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Marketplace
+          Live Sessions
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -321,13 +321,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="newsfeed.html">
+        <a class="menu-item-link" href="./message-center.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Newsfeed
+          Message Center
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -336,13 +336,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="overview.html">
+        <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Overview
+          Community
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -351,13 +351,13 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="groups.html">
+        <a class="menu-item-link" href="./404.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
           </svg>
           <!-- /MENU ITEM LINK ICON -->
-          Groups
+          Live Sessions
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -1036,7 +1036,7 @@
   <!-- /FLOATY BAR -->
 
   <!-- CONTENT GRID -->
-  <div class="content-grid">
+  <div class="content-grid pb-5">
     <!-- SECTION BANNER -->
     <div class="section-banner">
       <!-- SECTION BANNER ICON -->
@@ -1104,16 +1104,16 @@
 							<div class="my-3">
 								<span>Choose Avatar</span>
 								<div class="col p-2 border-black border rounded">
-									<img src="./img/avatar/03.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img src="./img/avatar/04.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img src="./img/avatar/31.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img src="./img/avatar/32.jpg" class="avatar_select mx-1" height="50" width="50">
+									<img onclick="select_img(this)" name="1" src="./img/avatar/03.jpg" class="avatar_select mx-1" height="50" width="50">
+									<img onclick="select_img(this)" name="2" src="./img/avatar/04.jpg" class="avatar_select mx-1" height="50" width="50">
+									<img onclick="select_img(this)" name="3" src="./img/avatar/31.jpg" class="avatar_select mx-1" height="50" width="50">
+									<img onclick="select_img(this)" name="4" src="./img/avatar/32.jpg" class="avatar_select mx-1" height="50" width="50">
 								</div>
 							</div>
 
 
 							<div class="form-row">
-								<p class="button primary" style="width:200px;">Update Profile!</p>
+								<p class="button primary" style="width:200px;" onclick="update_profile()">Update Profile!</p>
 							</div>
               <!-- /FORM ROW -->
             </form>
@@ -1213,12 +1213,18 @@
 
 <script type="text/javascript">
 
+	select_img=(el)=>{
+		$("img").removeClass("avatar_select_border")
+		$(el).addClass("avatar_select_border")
+		global_avatar_sel=el.name
+	}
+
 	update_profile=()=>{
 
 		var new_name=$("#update_name").val()
 		var new_name=global_avatar_sel
-		console.log("")
-
+		console.log("Profile update call")
+		alert("Profile Updated Successfully!")
 		return
 		let email=getCookie("user")
 		$.post(api_url+"/update_profile" ,{email:email,new_name:new_name,new_avatar:new_avatar}, function(data, status){

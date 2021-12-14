@@ -60,7 +60,7 @@
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+        <div class="hexagon-image-30-32" data-src="img/avatar/02.jpg"></div>
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
@@ -280,7 +280,7 @@
           <!-- USER AVATAR CONTENT -->
           <div class="user-avatar-content">
             <!-- HEXAGON -->
-            <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+            <div class="hexagon-image-30-32" data-src="img/avatar/02.jpg"></div>
             <!-- /HEXAGON -->
           </div>
           <!-- /USER AVATAR CONTENT -->
@@ -1053,7 +1053,12 @@
 			}
 			if ($(window).width()>600) {
 				// for dsk
-
+				let max_w=per(75,$(window).width())
+				$(".chat-widget-speaker-message").css("max-width",max_w)
+				$(".chat-widget-speaker-message").addClass("pb-0")
+				$(".chat-widget-speaker-message").addClass("mb-0")
+				$(".chat-widget-speaker-timestamp").addClass("mt-0")
+				$("pre").addClass("my_pre_msg")
 			}
 			else {
 				$(".simplebar-content").addClass("px-1")
@@ -1128,6 +1133,16 @@
 			data=eval(data)
 			$("#acc_posts").text(data[0])
 			$("#acc_likes").text(data[1])
+		})
+	}
+
+	get_avatar=()=>{
+		let email=getCookie("user")
+		let temp_url="http://127.0.0.1:5000"
+		$.post(temp_url+"/get_avatar" ,{email:email}, function(data, status){
+			console.log(data)
+			data=eval(data)
+			$("#avatar_img").attr("src",data)
 		})
 	}
 
