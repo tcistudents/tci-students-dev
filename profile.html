@@ -57,22 +57,14 @@
   <!-- NAVIGATION WIDGET -->
   <nav id="navigation-widget-small" class="navigation-widget navigation-widget-desktop closed sidebar left delayed">
     <!-- USER AVATAR -->
-    <a class="user-avatar small no-outline online" href="profile-timeline.html">
+    <a class="user-avatar small no-outline online" href="javascript:;">
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+        <img class="avatar_small" id="avatar_small" src="">
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
-
-      <!-- USER AVATAR PROGRESS BORDER -->
-      <div class="user-avatar-progress-border">
-        <!-- HEXAGON -->
-        <div class="hexagon-border-40-44"></div>
-        <!-- /HEXAGON -->
-      </div>
-      <!-- /USER AVATAR PROGRESS BORDER -->
 
     </a>
     <!-- /USER AVATAR -->
@@ -137,7 +129,7 @@
     <!-- USER SHORT DESCRIPTION -->
     <div class="user-short-description">
       <!-- USER SHORT DESCRIPTION AVATAR -->
-      <a class="user-short-description-avatar user-avatar medium" href="profile-timeline.html">
+      <a class="user-short-description-avatar user-avatar medium" href="javascript:;">
         <!-- USER AVATAR BORDER -->
         <div class="user-avatar-border">
           <!-- HEXAGON -->
@@ -149,19 +141,11 @@
         <!-- USER AVATAR CONTENT -->
         <div class="user-avatar-content">
           <!-- HEXAGON -->
-          <div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
+          <img class="avatar_big" id="avatar_big" src="img/avatar/1.png" alt="" height="80" width="80">
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
 
-
-        <!-- USER AVATAR PROGRESS BORDER -->
-        <div class="user-avatar-progress-border">
-          <!-- HEXAGON -->
-          <div class="hexagon-border-100-110"></div>
-          <!-- /HEXAGON -->
-        </div>
-        <!-- /USER AVATAR PROGRESS BORDER -->
 
       </a>
       <!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -275,29 +259,20 @@
       <!-- NAVIGATION WIDGET INFO -->
       <div class="navigation-widget-info">
         <!-- USER AVATAR -->
-        <a class="user-avatar small no-outline" href="profile-timeline.html">
+        <a class="user-avatar small no-outline" href="javascript:;">
           <!-- USER AVATAR CONTENT -->
           <div class="user-avatar-content">
             <!-- HEXAGON -->
-            <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+            <img class="avatar_mob" id="avatar_mob" src="">
             <!-- /HEXAGON -->
           </div>
           <!-- /USER AVATAR CONTENT -->
-
-
-          <!-- USER AVATAR PROGRESS BORDER -->
-          <div class="user-avatar-progress-border">
-            <!-- HEXAGON -->
-            <div class="hexagon-border-40-44"></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR PROGRESS BORDER -->
 
         </a>
         <!-- /USER AVATAR -->
 
         <!-- NAVIGATION WIDGET INFO TITLE -->
-        <p class="navigation-widget-info-title"><a href="profile-timeline.html">Marina Valentine</a></p>
+        <p class="navigation-widget-info-title" id="acc_name_mob"><a href="javascript:;">Hi Students!</a></p>
         <!-- /NAVIGATION WIDGET INFO TITLE -->
 
         <!-- NAVIGATION WIDGET INFO TEXT -->
@@ -1034,12 +1009,12 @@
 		let email=getCookie("user")
 		$.post(api_url+"/get_avatar" ,{email:email}, function(data, status){
 			data=data[0]
-			$("#avatar_big").attr("src",data[0])
+			$("#avatar_big,#avatar_small,#avatar_mob").attr("src",data[0])
 			if (data[1]=="0" || data[1]=="") {
 				data[1]="Student"
 			}
 			$("#acc_name").text(data[1])
-			$("#acc_name2").text("Hi "+data[1])
+			$("#acc_name2,#acc_name_mob").text("Hi "+data[1])
 		})
 	}
 

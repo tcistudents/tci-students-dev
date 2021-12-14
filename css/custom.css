@@ -64,6 +64,18 @@
 	height:80px;
 	object-fit: contain;
 }
+.avatar_small{
+	width: 30px;
+	border-radius:45%;
+	height:30px;
+	object-fit: contain;
+}
+.avatar_mob{
+	width: 30px;
+	border-radius:45%;
+	height:30px;
+	object-fit: contain;
+}
 
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
