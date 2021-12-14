@@ -146,7 +146,7 @@
         <div class="user-avatar-content">
           <!-- HEXAGON -->
           <!-- <div class="hexagon-image-82-90" id="avatar_big" data-src="img/avatar/01.jpg"></div> -->
-					<img class="avatar_big" id="avatar_big" src="img/avatar/04.jpg" alt="" height="80" width="80">
+					<img class="avatar_big" id="avatar_big" src="img/avatar/1.png" alt="" height="80" width="80">
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
@@ -298,7 +298,7 @@
       <!-- /NAVIGATION WIDGET INFO -->
 
       <!-- NAVIGATION WIDGET BUTTON -->
-      <p class="navigation-widget-info-button button small secondary">Logout</p>
+      <p class="navigation-widget-info-button button small secondary" onclick="tci_logout()">Logout</p>
       <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->
@@ -677,7 +677,7 @@
 
 
           <!-- DROPDOWN NAVIGATION BUTTON -->
-          <p class="dropdown-navigation-button button small secondary">Logout</p>
+          <p class="dropdown-navigation-button button small secondary" onclick="tci_logout()">Logout</p>
           <!-- /DROPDOWN NAVIGATION BUTTON -->
         </div>
         <!-- /DROPDOWN NAVIGATION -->
@@ -1132,10 +1132,13 @@
 		let email=getCookie("user")
 		let temp_url="http://127.0.0.1:5000"
 		$.post(temp_url+"/get_avatar" ,{email:email}, function(data, status){
-			console.log(data)
-			data=eval(data)
-			data="."+data[0]
-			$("#avatar_big").attr("src",data)
+			data=data[0]
+			$("#avatar_big").attr("src",data[0])
+			if (data[1]=="0" || data[1]=="") {
+				data[1]="Student"
+			}
+			$("#acc_name").text(data[1])
+			$("#acc_name2").text("Hi "+data[1])
 		})
 	}
 
@@ -1146,11 +1149,7 @@
 
 		$.post(api_url+"/verify_user", {email:email},function(data, status){
 			console.log("Data: " + data + "\nStatus: " + status);
-			if (data=="success") {
-				let temp=(email.split("@"))[0]
-				$("#acc_name").text(temp)
-				$("#acc_name2").text("Hi "+temp)
-			}
+			if (data=="success") {}
 			else {
 			tci_logout()
 			}

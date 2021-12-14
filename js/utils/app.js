@@ -142,7 +142,6 @@ const app = {
     },
     createHexagon: function (options) {
       if (app.existsInDOM(options.container) || typeof options.containerElement !== 'undefined') {
-				console.log("Hex exec ")
         return new XM_Hexagon(options);
       }
     },

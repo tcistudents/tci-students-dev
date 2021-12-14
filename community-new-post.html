@@ -314,7 +314,7 @@
       <!-- /NAVIGATION WIDGET INFO -->
 
       <!-- NAVIGATION WIDGET BUTTON -->
-      <p class="navigation-widget-info-button button small secondary">Logout</p>
+      <p class="navigation-widget-info-button button small secondary" onclick="tci_logout()">Logout</p>
       <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->
@@ -699,7 +699,7 @@
 
 
           <!-- DROPDOWN NAVIGATION BUTTON -->
-          <p class="dropdown-navigation-button button small secondary">Logout</p>
+          <p class="dropdown-navigation-button button small secondary" onclick="tci_logout()">Logout</p>
           <!-- /DROPDOWN NAVIGATION BUTTON -->
         </div>
         <!-- /DROPDOWN NAVIGATION -->
@@ -960,7 +960,7 @@
 
 <script>
 	// cookie fndef script
-	api_url="https://127.0.0.1:5000"
+	api_url="http://127.0.0.1:5000"
 	root="http://localhost/tci-students-dev"
 
 	function setCookie(cname, cvalue, exdays) {
@@ -1079,10 +1079,21 @@
 		})
 	}
 
+	get_avatar=()=>{
+		let email=getCookie("user")
+		$.post(api_url+"/get_avatar" ,{email:email}, function(data, status){
+			data=data[0]
+			$("#avatar_big").attr("src",data[0])
+			if (data[1]=="0" || data[1]=="") {
+				data[1]="Student"
+			}
+			$("#acc_name").text(data[1])
+			$("#acc_name2").text("Hi "+data[1])
+		})
+	}
 
 	$( document ).ready(function() {
 		console.log("Ready!")
-		api_url="http://127.0.0.1:5000"
 
 		// upload evt verify
 		$("input[type='file']").on("change", function () {
@@ -1114,11 +1125,7 @@
 
 		$.post(api_url+"/verify_user", {email:email},function(data, status){
 			console.log("Data: " + data + "\nStatus: " + status);
-			if (data=="success") {
-				let temp=(email.split("@"))[0]
-				$("#acc_name").text(temp)
-				$("#acc_name2").text("Hi "+temp)
-			}
+			if (data=="success") {}
 			else {
 			tci_logout()
 			}
@@ -1131,6 +1138,7 @@
 		// refresh()
 
 		get_stats()
+		get_avatar()
 
 
 		// setInterval(function(){ refresh() }, 180000);
