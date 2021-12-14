@@ -58,7 +58,7 @@ const app = {
   liquidify: function (el) {
     const image = el.querySelector('img'),
           imageSrc = image.getAttribute('src');
-  
+
     image.style.display = 'none';
     el.style.background = `url("${imageSrc}") no-repeat center`;
     el.style.backgroundSize = 'cover';
@@ -142,6 +142,7 @@ const app = {
     },
     createHexagon: function (options) {
       if (app.existsInDOM(options.container) || typeof options.containerElement !== 'undefined') {
+				console.log("Hex exec ")
         return new XM_Hexagon(options);
       }
     },

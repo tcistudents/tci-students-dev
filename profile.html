@@ -827,55 +827,7 @@
           </li>
           <!-- /MENU MAIN ITEM -->
 
-          <!-- MENU MAIN ITEM -->
-          <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <p class="menu-main-item-link">
-              <!-- ICON DOTS -->
-              <svg class="icon-dots">
-                <use xlink:href="#svg-dots"></use>
-              </svg>
-              <!-- /ICON DOTS -->
-            </p>
-            <!-- /MENU MAIN ITEM LINK -->
 
-            <!-- MENU MAIN -->
-            <ul class="menu-main">
-              <!-- MENU MAIN ITEM -->
-              <li class="menu-main-item">
-                <!-- MENU MAIN ITEM LINK -->
-                <a class="menu-main-item-link" href="#">About Us</a>
-                <!-- /MENU MAIN ITEM LINK -->
-              </li>
-              <!-- /MENU MAIN ITEM -->
-
-              <!-- MENU MAIN ITEM -->
-              <li class="menu-main-item">
-                <!-- MENU MAIN ITEM LINK -->
-                <a class="menu-main-item-link" href="#">Our Blog</a>
-                <!-- /MENU MAIN ITEM LINK -->
-              </li>
-              <!-- /MENU MAIN ITEM -->
-
-              <!-- MENU MAIN ITEM -->
-              <li class="menu-main-item">
-                <!-- MENU MAIN ITEM LINK -->
-                <a class="menu-main-item-link" href="#">Contact Us</a>
-                <!-- /MENU MAIN ITEM LINK -->
-              </li>
-              <!-- /MENU MAIN ITEM -->
-
-              <!-- MENU MAIN ITEM -->
-              <li class="menu-main-item">
-                <!-- MENU MAIN ITEM LINK -->
-                <a class="menu-main-item-link" href="#">Privacy Policy</a>
-                <!-- /MENU MAIN ITEM LINK -->
-              </li>
-              <!-- /MENU MAIN ITEM -->
-            </ul>
-            <!-- /MENU MAIN -->
-          </li>
-          <!-- /MENU MAIN ITEM -->
         </ul>
         <!-- /MENU MAIN -->
       </nav>
@@ -950,7 +902,7 @@
   <!-- /HEADER -->
 
   <!-- FLOATY BAR -->
-  <aside class="floaty-bar">
+  <aside class="floaty-bar d-none">
     <!-- BAR ACTIONS -->
     <div class="bar-actions">
       <!-- PROGRESS STAT -->
@@ -1090,7 +1042,7 @@
                   <!-- FORM INPUT -->
                   <div class="form-input small">
                     <label for="billing-first-name">Update name</label>
-                    <input type="text" id="billing-first-name" name="billing_first_name">
+                    <input type="text" id="update_name" name="billing_first_name">
                   </div>
                   <!-- /FORM INPUT -->
                 </div>
@@ -1104,10 +1056,25 @@
 							<div class="my-3">
 								<span>Choose Avatar</span>
 								<div class="col p-2 border-black border rounded">
-									<img onclick="select_img(this)" name="1" src="./img/avatar/03.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img onclick="select_img(this)" name="2" src="./img/avatar/04.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img onclick="select_img(this)" name="3" src="./img/avatar/31.jpg" class="avatar_select mx-1" height="50" width="50">
-									<img onclick="select_img(this)" name="4" src="./img/avatar/32.jpg" class="avatar_select mx-1" height="50" width="50">
+									<img onclick="select_img(this)" name="1" src="./img/avatar/1.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="2" src="./img/avatar/2.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="3" src="./img/avatar/3.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="4" src="./img/avatar/4.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="5" src="./img/avatar/5.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="6" src="./img/avatar/6.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="7" src="./img/avatar/7.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="8" src="./img/avatar/8.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="9" src="./img/avatar/9.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="10" src="./img/avatar/10.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="11" src="./img/avatar/11.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="12" src="./img/avatar/12.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="13" src="./img/avatar/13.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="14" src="./img/avatar/14.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="15" src="./img/avatar/15.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="16" src="./img/avatar/16.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="17" src="./img/avatar/17.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="18" src="./img/avatar/18.png" class="avatar_select m-1" height="50" width="50">
+									<img onclick="select_img(this)" name="19" src="./img/avatar/19.png" class="avatar_select m-1" height="50" width="50">
 								</div>
 							</div>
 
@@ -1216,19 +1183,20 @@
 	select_img=(el)=>{
 		$("img").removeClass("avatar_select_border")
 		$(el).addClass("avatar_select_border")
-		global_avatar_sel=el.name
+		global_avatar_sel=el.src
 	}
 
 	update_profile=()=>{
 
 		var new_name=$("#update_name").val()
-		var new_name=global_avatar_sel
+		var new_avatar=global_avatar_sel
 		console.log("Profile update call")
-		alert("Profile Updated Successfully!")
-		return
+
 		let email=getCookie("user")
 		$.post(api_url+"/update_profile" ,{email:email,new_name:new_name,new_avatar:new_avatar}, function(data, status){
-
+			if (data=="success") {
+				alert("Profile Updated Successfully!")
+			}
 		})
 	}
 
@@ -1261,7 +1229,7 @@
 		api_url="http://127.0.0.1:5000"
 
 		// global declaration
-		global_avatar_sel=""
+		global_avatar_sel="1"
 
 		//first api call
 		setCookie("user","harishwadhwa1994@gmail.com",1) //remove me setcookie not this page job

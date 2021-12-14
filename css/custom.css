@@ -58,6 +58,13 @@
 	border:2px solid green !important;
 }
 
+.avatar_big{
+	width: 80px;
+	border-radius:45%;
+	height:80px;
+	object-fit: contain;
+}
+
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */

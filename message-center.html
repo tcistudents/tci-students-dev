@@ -60,19 +60,13 @@
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" data-src="img/avatar/02.jpg"></div>
+        <img id="avatar_small" src="">
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
 
 
-      <!-- USER AVATAR PROGRESS BORDER -->
-      <div class="user-avatar-progress-border">
-        <!-- HEXAGON -->
-        <div class="hexagon-border-40-44"></div>
-        <!-- /HEXAGON -->
-      </div>
-      <!-- /USER AVATAR PROGRESS BORDER -->
+
 
 
     </a>
@@ -151,17 +145,14 @@
         <!-- USER AVATAR CONTENT -->
         <div class="user-avatar-content">
           <!-- HEXAGON -->
-          <div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
+          <!-- <div class="hexagon-image-82-90" id="avatar_big" data-src="img/avatar/01.jpg"></div> -->
+					<img class="avatar_big" id="avatar_big" src="img/avatar/04.jpg" alt="" height="80" width="80">
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
 
         <!-- USER AVATAR PROGRESS BORDER -->
-        <div class="user-avatar-progress-border">
-          <!-- HEXAGON -->
-          <div class="hexagon-border-100-110"></div>
-          <!-- /HEXAGON -->
-        </div>
+
         <!-- /USER AVATAR PROGRESS BORDER -->
 
 
@@ -893,6 +884,7 @@
 <!-- app -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
 <script src="js/utils/page-loader.js"></script>
@@ -1012,7 +1004,7 @@
 
 		let email=getCookie("user")
 		$.post(api_url+"/get_msg",{email:email}, function(data, status){
-			console.log(data)
+			// console.log(data)
 			try {
 				let ts=data[0][0]
 			}
@@ -1142,7 +1134,8 @@
 		$.post(temp_url+"/get_avatar" ,{email:email}, function(data, status){
 			console.log(data)
 			data=eval(data)
-			$("#avatar_img").attr("src",data)
+			data="."+data[0]
+			$("#avatar_big").attr("src",data)
 		})
 	}
 
@@ -1170,6 +1163,7 @@
 		get_link()
 		get_msg()
 		get_stats()
+		get_avatar()
 
 
 		// setInterval(function(){ refresh() }, 180000);
