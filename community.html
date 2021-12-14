@@ -536,7 +536,7 @@
       <!-- NAVIGATION -->
       <nav class="navigation">
         <!-- MENU MAIN -->
-        <ul class="menu-main">
+        <ul class="menu-main" style="visibility:hidden">
           <!-- MENU MAIN ITEM -->
           <li class="menu-main-item">
             <!-- MENU MAIN ITEM LINK -->
@@ -851,9 +851,7 @@
     <div class="section-header">
       <!-- SECTION HEADER INFO -->
       <div class="section-header-info">
-        <!-- SECTION PRETITLE -->
-        <p class="section-pretitle">Browse</p>
-        <!-- /SECTION PRETITLE -->
+
 
         <!-- SECTION TITLE -->
         <h2 class="section-title">Community Posts</h2>
@@ -875,7 +873,7 @@
     <!-- /SECTION HEADER -->
 
     <!-- SECTION FILTERS BAR -->
-    <div class="section-filters-bar v4">
+    <div id="filter_container" class="section-filters-bar v4">
 
       <!-- SECTION FILTERS BAR ACTIONS -->
       <div class="section-filters-bar-actions">
@@ -906,7 +904,7 @@
 
 
             <!-- BUTTON -->
-            <label class="button secondary" onclick="get_all_posts()">Apply Filters</label>
+            <label id="filter_btn" class="button secondary" onclick="get_all_posts()">Apply Filters</label>
             <!-- /BUTTON -->
           </div>
           <!-- /FORM ITEM -->
@@ -1726,6 +1724,16 @@
 		if ( $(window).width()>1430 ) {
 			$(".grid.grid-3-3-3").css("grid-template-columns","repeat(auto-fit, 330px)")
 			// var getpost_id=sessionStorage.getItem("getpost");
+		}
+		if ( $(window).width()<600 ) {
+			$("#filter_btn").css("margin-top","60px")
+			$("#filter_container").css("padding-bottom","55px")
+
+			$(".section-header").css("flex-direction","column")
+			$(".section-header").css("margin-top","20px")
+			$(".new_post_btn").css("margin-top","10px")
+
+
 		}
 
 
