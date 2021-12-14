@@ -772,15 +772,15 @@
     <!-- SECTION BANNER -->
     <div class="section-banner">
       <!-- SECTION BANNER ICON -->
-      <img class="section-banner-icon" src="img/banner/accounthub-icon.png" alt="accounthub-icon">
+      <img class="section-banner-icon" src="img/banner/marketplace-icon.png" alt="accounthub-icon">
       <!-- /SECTION BANNER ICON -->
 
       <!-- SECTION BANNER TITLE -->
-      <p class="section-banner-title">Account Hub</p>
+      <p class="section-banner-title">TCI Community</p>
       <!-- /SECTION BANNER TITLE -->
 
       <!-- SECTION BANNER TEXT -->
-      <p class="section-banner-text">Profile info, messages, settings and much more!</p>
+      <p class="section-banner-text weight-700">The best place for the community to Share Trading & Investing Ideas</p>
       <!-- /SECTION BANNER TEXT -->
     </div>
     <!-- /SECTION BANNER -->
@@ -1089,7 +1089,7 @@
 	function linkify(text) {
 		var urlRegex = /(https?:\/\/[^\s]+)/g;
 		return text.replace(urlRegex, function(url) {
-			return '<a href="'+url+'" target="_blank">' + url + '</a>';
+			return '<a class="linkified_a" href="'+url+'" target="_blank">' + url + '</a>';
 		})
 		// or alternatively
 		// return text.replace(urlRegex, '<a href="$1">$1</a>')

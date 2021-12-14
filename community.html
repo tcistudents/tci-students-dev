@@ -713,7 +713,7 @@
       <!-- /SECTION BANNER TITLE -->
 
       <!-- SECTION BANNER TEXT -->
-      <p class="section-banner-text">The best place for the community to Share Trading & Investing Ideas</p>
+      <p class="section-banner-text weight-700">The best place for the community to Share Trading & Investing Ideas</p>
       <!-- /SECTION BANNER TEXT -->
     </div>
     <!-- /SECTION BANNER -->
@@ -730,7 +730,7 @@
 
 
                 <!-- USER STATUS TITLE -->
-                <p class="user-status-title medium"><a class="bold" href="javascript:;"><i class="fas fa-user-graduate"></i> TCI Student</a></p>
+                <p class="user-status-title medium"><a class="bold" href="javascript:;"><i class="fas fa-user-graduate"></i> <span id="post_author">TCI Student</span></a></p>
                 <!-- /USER STATUS TITLE -->
 
                 <!-- USER STATUS TEXT -->
@@ -762,34 +762,7 @@
                   <!-- META LINE -->
                   <div class="meta-line">
                     <!-- META LINE LIST -->
-                    <div class="meta-line-list reaction-item-list">
-                      <!-- REACTION ITEM -->
-                      <div class="reaction-item" style="position: relative;">
-                        <!-- REACTION IMAGE -->
-                        <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/dislike.png" alt="reaction-dislike">
-                        <!-- /REACTION IMAGE -->
-
-                        <!-- SIMPLE DROPDOWN -->
-                        <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                          <!-- SIMPLE DROPDOWN TEXT -->
-                          <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/dislike.png" alt="reaction-dislike"> <span class="bold">Dislike</span></p>
-                          <!-- /SIMPLE DROPDOWN TEXT -->
-
-                          <!-- SIMPLE DROPDOWN TEXT -->
-                          <p class="simple-dropdown-text">Matt Parker</p>
-                          <!-- /SIMPLE DROPDOWN TEXT -->
-
-                          <!-- SIMPLE DROPDOWN TEXT -->
-                          <p class="simple-dropdown-text">Destroy Dex</p>
-                          <!-- /SIMPLE DROPDOWN TEXT -->
-
-                          <!-- SIMPLE DROPDOWN TEXT -->
-                          <p class="simple-dropdown-text">The Green Goo</p>
-                          <!-- /SIMPLE DROPDOWN TEXT -->
-                        </div>
-                        <!-- /SIMPLE DROPDOWN -->
-                      </div>
-                      <!-- /REACTION ITEM -->
+                    <div class="meta-line-list reaction-item-list" onclick="toggle_post_view_like()">
 
                       <!-- REACTION ITEM -->
                       <div class="reaction-item" style="position: relative;">
@@ -854,7 +827,7 @@
                     <!-- /META LINE LIST -->
 
                     <!-- META LINE TEXT -->
-                    <p class="meta-line-text" id="post_likes_push">11</p>
+                    <p class="meta-line-text" id="post_likes_push">1</p>
                     <!-- /META LINE TEXT -->
                   </div>
                   <!-- /META LINE -->
@@ -1503,9 +1476,17 @@
 
 	get_single_post=(ts)=>{
 
+		$("#post_likes_push").removeClass("linkified_a")
+		global_already_liked=false
+		global_open_post_ts=raw_ts=""
+
 		let email=getCookie("user")
 		$.post(api_url+"/get_post" ,{email:email,timestamp:ts}, function(data, status){
 			// console.log("Data "+data)
+			var raw_ts=data[0][0]
+			global_open_post_ts=raw_ts
+			global_like_lock=false
+
 			let ts=moment.unix(data[0][0]).format("DD-MMM HH:mm A")
 			// console.log("ts "+ts)
 
@@ -1515,6 +1496,18 @@
 			$("#post_img").attr("src",data[0][5])
 			$("#post_img_a").attr("href",data[0][5])
 			$("#post_likes_push").text(data[0][6])
+
+			var temp=eval(data[1][0])
+
+			if ( temp.includes(raw_ts) ) {
+				global_already_liked=true
+				$("#post_likes_push").addClass("linkified_a")
+			}
+
+			// if (data[1][]) {
+			// 	$("#post_likes_push").addClass("linkified_a")
+			// }
+			$("#post_author").text(data[1][1])
 
 		});
 
@@ -1670,6 +1663,29 @@
 
 	}
 
+	toggle_post_view_like=()=>{
+
+		var old_val=$("#post_likes_push").text()
+
+		if (global_already_liked) {
+			// var new_val=parseInt(old_val)-1
+			// $("#post_likes_push").text(new_val)
+			// $("#post_likes_push").removeClass("linkified_a")
+		}
+		else {
+			let email=getCookie("user")
+			if (global_like_lock) {return}
+			$.post(api_url+"/like", {email:email,timestamp:global_open_post_ts},function(data, status){
+				// console.log("Data: " + data + "\nStatus: " + status);
+				var new_val=parseInt(old_val)+1
+				$("#post_likes_push").text(new_val)
+				$("#post_likes_push").addClass("linkified_a")
+				global_like_lock=true
+			});
+		}
+
+	}
+
 	detect_acc_type=()=>{
 		let email=getCookie("user")
 		$.post(api_url+"/detect_user" ,{email:email}, function(data, status){
@@ -1714,6 +1730,7 @@
 
 
 		// global decoration
+		global_like_lock=false
 
 		setCookie("user","harishwadhwa1994@gmail.com",1) //remove me setcookie not this page job
 		let email=getCookie("user")

@@ -33,9 +33,12 @@
 	text-decoration:none;
 }
 
+
 .my_pre_msg{
 	color: #3e3f5e;
   font-family: "Rajdhani", sans-serif;
+	font-size: 1rem;
+	overflow-y: hidden;
 }
 
 .pointer{
@@ -75,6 +78,16 @@
 	border-radius:45%;
 	height:30px;
 	object-fit: contain;
+}
+
+.weight-700{
+	font-weight:700 !important;
+}
+
+.linkified_a{
+	text-decoration: none;
+	font-weight: 600;
+	color:#00c7d9;
 }
 
 .noselect {
