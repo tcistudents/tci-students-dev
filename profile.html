@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Required meta tags -->
+	<meta name="google-signin-client_id" content="256759331803-sfjlu7hdaia8jtfuqojpifnjgjacsekn.apps.googleusercontent.com">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- bootstrap 4.3.1 -->
   <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
   <!-- styles -->
@@ -907,6 +914,21 @@
 <script src="js/utils/svg-loader.js"></script>
 
 <script>
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
+	}
+
+	function onLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<script>
 	// cookie fndef script
 	api_url="https://student.tredcode.com"
 	root="https://tcistudents.com/"
@@ -982,6 +1004,31 @@
 		})
 	}
 
+	admin_verify=()=>{
+		let email=getCookie("user")
+		$.post(api_url+"/verify_admin",{email:email}, function(data, status){
+			var curr_url=window.location.href
+			curr_url=curr_url.split("/")
+			curr_url=curr_url[curr_url.length-1]
+			if (data=="elite") {
+				if (curr_url=="message-center.html") {window.location.replace(root+"/admin/admin_mgmt.html")}
+				else {}
+			}
+			else if (data=="pro") {
+				if (curr_url=="admin_p.html") {}
+				else {window.location.replace(root+"/admin/admin_p.html")}
+			}
+			else if (data=="foundation") {
+				if (curr_url=="admin_b.html") {}
+				else {window.location.replace(root+"/admin/admin_b.html")}
+			}
+			else {
+				if (curr_url=="profile.html") {}
+				else {window.location.replace(root+"message-center.html")}
+			}
+		});
+	}
+
 	detect_acc_type=()=>{
 		let email=getCookie("user")
 		$.post(api_url+"/detect_user" ,{email:email}, function(data, status){
@@ -1039,7 +1086,7 @@
 
 		// admin_verify()
 		detect_acc_type()
-		// refresh()
+		refresh()
 
 		get_stats()
 		get_avatar()
