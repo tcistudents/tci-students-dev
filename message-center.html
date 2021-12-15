@@ -89,7 +89,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link text-tooltip-tfr" href="./community.html" data-title="Community">
           <!-- MENU ITEM LINK ICON -->
@@ -103,7 +103,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link text-tooltip-tfr" href="./404.html" data-title="Live Sessions">
           <!-- MENU ITEM LINK ICON -->
@@ -216,7 +216,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
@@ -231,7 +231,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link" href="./404.html">
           <!-- MENU ITEM LINK ICON -->
@@ -318,7 +318,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link" href="./community.html">
           <!-- MENU ITEM LINK ICON -->
@@ -333,7 +333,7 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
+      <li class="menu-item d-none">
         <!-- MENU ITEM LINK -->
         <a class="menu-item-link" href="./404.html">
           <!-- MENU ITEM LINK ICON -->
@@ -1112,7 +1112,7 @@
 
 	get_stats=()=>{
 		let email=getCookie("user")
-		let temp_url="http://127.0.0.1:5000"
+		let temp_url="https://student.tredcode.com"
 		$.post(temp_url+"/user_stats" ,{email:email}, function(data, status){
 			console.log(data)
 			data=eval(data)
