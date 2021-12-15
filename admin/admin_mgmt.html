@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="google-signin-client_id" content="256759331803-sfjlu7hdaia8jtfuqojpifnjgjacsekn.apps.googleusercontent.com">
+		<title>TCI Students</title>
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="../css/custom.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+		<!-- google logout script -->
+		<script>
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+					console.log('User signed out.');
+				});
+			}
+
+			function onLoad() {
+				gapi.load('auth2', function() {
+					gapi.auth2.init();
+				});
+			}
+		</script>
+		<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
+		<!-- cookie handling script -->
+		<script>
+
+			function setCookie(cname, cvalue, exdays) {
+				const d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				let expires = "expires="+d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
+
+			function getCookie(cname) {
+				let name = cname + "=";
+				let ca = document.cookie.split(';');
+				for(let i = 0; i < ca.length; i++) {
+					let c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
+
+			function checkCookie(name) {
+				let user = getCookie(name);
+				if (user != "") {return true}
+				else {return false}
+			}
+
+			function rmCookie(name){
+				document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			}
+
+			tci_logout=()=>{
+				rmCookie("user")
+				signOut()
+				localStorage.clear();
+				document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+				window.location.replace(root)
+			}
+
+			refresh=()=>{
+				if (checkCookie("user")) {}
+				else {window.location.replace(root);}
+			}
+		</script>
+
+		<script type="text/javascript">
+
+			api_url="https://student.tredcode.com"
+			root="http://tcistudents.com"
+
+
+			admin_verify=()=>{
+				let email=getCookie("user")
+				$.post(api_url+"/verify_admin",{email:email}, function(data, status){
+					var curr_url=window.location.href
+					curr_url=curr_url.split("/")
+					curr_url=curr_url[curr_url.length-1]
+					if (data=="elite") {}
+					else if (data=="pro") {
+						if (curr_url=="admin_p.html") {}
+						else {window.location.replace(root+"/admin/admin_p.html")}
+					}
+					else if (data=="foundation") {
+						if (curr_url=="admin_b.html") {}
+						else {window.location.replace(root+"/admin/admin_b.html")}
+					}
+					else {
+						if (curr_url=="message-center.html") {}
+						else {window.location.replace(root+"/message-center.html")}
+					}
+				});
+			}
+
+			del_all_users=()=>{
+				if ( $("#confirmation_box_1").is(':checked') ) {}
+				else{alert("Confirm Checkbox first!");return}
+
+				let email=getCookie("user")
+				$.post(api_url+"/elite_del_all" ,{email:email}, function(data, status){
+					alert("Data "+data)
+	 			});
+				try {fetch_table()}
+				catch (e) {console.log("Error in auto update Dtable")}
+			}
+
+			add_user=()=>{
+				let name=$("#ua_1").val()
+				let u_email=$("#ua_2").val()
+				let mobile=$("#ua_3").val()
+				let course=$('input[name="subs_type"]:checked').val();
+				let tredcode=$('input[name="tredcode_sel"]:checked').val();
+				let bnknifty=$('input[name="bknifty_sel"]:checked').val();
+
+				let email=getCookie("user")
+				// console.log(name,email,mobile,course,tredcode,bnknifty)
+				$.post(api_url+"/elite_add" ,{email:email,u_name:name,u_email:u_email,u_mob:mobile,u_course:course,u_tc:tredcode,u_bknifty:bnknifty}, function(data, status){
+					alert("Data "+data)
+	 			});
+				try {fetch_table()}
+				catch (e) {console.log("Error in auto update Dtable")}
+			}
+
+			fetch_table=()=>{
+				let email=getCookie("user")
+				$.post(api_url+"/elite_fetch_alluser" ,{email:email}, function(data, status){
+					// console.log("Data "+data)
+
+					// data preprocessing
+					var counter=data.length
+					for (var i = 0; i < data.length; i++) {
+
+
+						let sel_id=data[i][1]+"_sel"
+						let btn_id=data[i][1]+"_btn"
+
+						data[i][6]='<select id="'+sel_id+'"><option value="none">Select Role</option><option value="foundation">Foundation</option><option value="pro partial">Pro Partial</option><option value="pro full">Pro Full</option><option value="0">0</option><option value="delete">Delete</option></select>'
+						data[i][7]='<button id="'+btn_id+'" onclick="push_update(this.id)">Update</button>'
+					}
+
+					// append to table
+					if (data) {
+						var datatable = $("#table").DataTable({
+							"aaSorting": [],
+							"bSort" : false,
+							"paging": false,
+							"info": false,
+							"scrollX": true,
+							"scrollY": 500,
+		  				"scrollCollapse": true
+				    });
+						datatable.clear();
+				    datatable.rows.add(data);
+				    datatable.draw();
+					}
+
+	 			});
+			}
+
+			push_update=(id)=>{
+
+				let client_email=id.split("_btn")
+				client_email=client_email[0]
+
+				let course_sel="#"+client_email+"_sel"
+				course_sel=course_sel.replace(/\./g,'\\.')
+				course_sel=course_sel.replace(/\@/g,'\\@')
+				course=$(course_sel).val()
+				if (course=="none") {console.log("none sel");return}
+
+				let email=getCookie("user")
+
+					$.post(api_url+"/elite_update" ,{email:email,client_email:client_email,course:course}, function(data, status){
+					alert("Data "+data)
+					try {fetch_table()}
+					catch (e) {console.log("Error in auto update Dtable")}
+	 			});
+			}
+
+			$(document).ready(function(){
+				$.fn.dataTable.ext.errMode = 'none';
+
+				let email=getCookie("user")
+				$.post(api_url+"/verify_user", {email:email},function(data, status){
+					console.log("Data: " + data + "\nStatus: " + status);
+					if (data="success") {
+
+						}
+					else {
+						rmCookie("user")
+						window.location.replace(root);
+					}
+
+				});
+
+				refresh()
+				admin_verify()
+				fetch_table()
+				$("#form_1").val(getCookie("user"))
+				$("#form_2").val(getCookie("user"))
+			});
+		</script>
+	</head>
+	<body>
+
+		<div class="col-12 bg-color mx-0 p-3 mb-5 rounded">
+			<span class="h3">Admin User Management</span>
+			<a class="float-right" href="#" onclick="tci_logout()">Sign out</a>
+		</div>
+
+		<div class="col-md-6 bg-color mx-auto p-4 rounded">
+			<div class="mb-2"><span class="h4">Add Users</span></div>
+				<label>Name</label>
+				<input type="text" class="form-control mb-2" id="ua_1" placeholder="Name (Optional)">
+				<label>Email</label>
+				<input type="text" class="form-control mb-2" id="ua_2" placeholder="Email ">
+				<label>Mobile</label>
+				<input type="text" class="form-control mb-2" id="ua_3" placeholder="Contact No. (Optional)">
+
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+					  <input class="mx-1" type="radio" name="subs_type" id="subs_type_1" value="foundation">
+					  Foundation
+					</div>
+					<div class="col-6 p-0">
+						<input class="ml-auto mx-1" type="radio" name="tredcode_sel" id="subs_type_2_1" value="1">
+					 With TredCode
+					</div>
+				</div>
+
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+					  <input class="mx-1" type="radio" name="subs_type" id="subs_type_2" value="pro partial">
+					  Pro Partial
+					</div>
+					<div class="col-6 p-0 ">
+						<input class="ml-auto mx-1" type="radio" name="tredcode_sel" id="subs_type_2_2" value="0" checked="checked">
+					 Without TredCode
+					</div>
+				</div>
+
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+					  <input class="mx-1" type="radio" name="subs_type" id="subs_type_3" value="pro full">
+					  Pro Full
+					</div>
+					<div class="col-6 p-0 border-top pt-1">
+						<input class="ml-auto mx-1" type="radio" name="bknifty_sel" id="subs_type_3_1" value="1">
+					 	With BankNifty
+					</div>
+
+				</div>
+
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+					  <input class="mx-1" type="radio" name="subs_type" id="subs_type_4" value="0" checked="checked">
+					  None
+					</div>
+					<div class="col-6 p-0">
+						<input class="ml-auto mx-1" type="radio" name="bknifty_sel" id="subs_type_3_2" value="0" checked="checked">
+					 	Without BankNifty
+					</div>
+				</div>
+
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0 border-top pt-1">
+						<input class="mx-1" type="radio" name="subs_type" id="subs_type_5" value="elite">
+						Elite (Full Access)
+					</div>
+
+				</div>
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+						<input class="mx-1" type="radio" name="subs_type" id="subs_type_5" value="admin_p">
+						Admin Pro
+					</div>
+
+				</div>
+				<div class="row mt-0 mb-2 mx-0">
+					<div class=" col-6 p-0">
+						<input class="mx-1" type="radio" name="subs_type" id="subs_type_5" value="admin_b">
+						Admin Foundation
+					</div>
+
+				</div>
+
+
+				<div class="">
+					<button style="width:150px;" onclick="add_user()">Submit</button>
+				</div>
+
+		</div>
+
+
+		<div class="col-md-6 bg-color mx-auto p-4 rounded my-4">
+			<span class="h4">Upload Excel (Bulk User)</span>
+			<div class="my-2">
+				<br><small>*Note: Uploading spreadsheet will overwrite Old Database, incorrect data format will crash/malfunction App*</small>
+			</div>
+			<form action="https://student.tredcode.com/upload" method="POST" enctype = "multipart/form-data">
+				<input id="form_1" type="text" name="email" value="" style="display:none"></input>
+				<input type="file" name="file">
+				<br><br><input type="submit" value="Upload File">
+			</form>
+		</div>
+
+		<div class="col-11 bg-color mx-auto p-4 rounded my-4">
+			<span class="h3">Elite Admin Actions </span>
+			<div class="my-2">
+				<form class="" action="https://student.tredcode.com/download/backup" method="post">
+					<input id="form_2" type="text" name="email" value="" style="display:none"></input>
+					<span>1. Download Backup File </span>
+					<input type="submit" value="Download">
+				</form>
+
+				<div class="my-2">
+					<span>2. Delete all Users </span>
+					<input id="confirmation_box_1" type="checkbox" ></input>
+					<button onclick="del_all_users()">Delete</button>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-11 bg-color mx-auto p-4 rounded my-4">
+			<span class="h4">Manage Users</span>
+			<table id="table" class="display" style="width:100%">
+			    <thead>
+			        <tr>
+			            <th>Name</th>
+									<th>Email</th>
+			            <th>Phone</th>
+									<th>Course</th>
+									<th>TredCode</th>
+									<th>BankNifty</th>
+									<th>Action</th>
+									<th>Save Changes</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+
+			    </tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+	</body>
+</html>
