@@ -289,7 +289,7 @@
       <!-- /NAVIGATION WIDGET INFO -->
 
       <!-- NAVIGATION WIDGET BUTTON -->
-      <p class="navigation-widget-info-button button small secondary" onclick="tci_logout()">Logout</p>
+      <p class="navigation-widget-info-button button small secondary signout_btn" onclick="tci_logout()">Logout</p>
       <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->
@@ -621,7 +621,7 @@
           <!-- /DROPDOWN NAVIGATION LINK -->
 
           <!-- DROPDOWN NAVIGATION BUTTON -->
-          <p class="dropdown-navigation-button button small secondary" onclick="tci_logout()">Logout</p>
+          <p class="dropdown-navigation-button button small secondary signout_btn" onclick="tci_logout()">Logout</p>
           <!-- /DROPDOWN NAVIGATION BUTTON -->
         </div>
         <!-- /DROPDOWN NAVIGATION -->
@@ -1760,8 +1760,8 @@
 		get_all_posts()
 
 
-		// setInterval(function(){ refresh() }, 180000);
-		// setInterval(function(){ $('.signout_btn').trigger('click'); }, 1800000);
+		setInterval(function(){ refresh() }, 180000);
+		setInterval(function(){ $('.signout_btn').trigger('click'); }, 1800000);
 
 	});
 
