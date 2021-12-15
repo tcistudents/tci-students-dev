@@ -908,8 +908,8 @@
 
 <script>
 	// cookie fndef script
-	api_url="http://127.0.0.1:5000"
-	root="http://localhost/tci-students-dev"
+	api_url="https://student.tredcode.com"
+	root="https://tcistudents.com/"
 
 	function setCookie(cname, cvalue, exdays) {
 		const d = new Date();
@@ -1025,7 +1025,6 @@
 		global_avatar_sel="1"
 
 		//first api call
-		setCookie("user","harishwadhwa1994@gmail.com",1) //remove me setcookie not this page job
 		let email=getCookie("user")
 
 		$.post(api_url+"/verify_user", {email:email},function(data, status){

@@ -174,7 +174,7 @@
       <!-- USER STAT -->
       <div class="user-stat">
         <!-- USER STAT TITLE -->
-        <p class="user-stat-title" id="acc_posts">930</p>
+        <p class="user-stat-title" id="acc_posts">0</p>
         <!-- /USER STAT TITLE -->
 
         <!-- USER STAT TEXT -->
@@ -186,7 +186,7 @@
       <!-- USER STAT -->
       <div class="user-stat">
         <!-- USER STAT TITLE -->
-        <p class="user-stat-title" id="acc_likes">82</p>
+        <p class="user-stat-title" id="acc_likes">0</p>
         <!-- /USER STAT TITLE -->
 
         <!-- USER STAT TEXT -->
@@ -649,11 +649,11 @@
             <div class="user-status">
 
               <!-- USER STATUS TITLE -->
-              <p class="user-status-title"><span class="bold" id="acc_name2">Hi Marina!</span></p>
+              <p class="user-status-title"><span class="bold" id="acc_name2">Hi Student!</span></p>
               <!-- /USER STATUS TITLE -->
 
               <!-- USER STATUS TEXT -->
-              <p class="user-status-text small"><a href="#" id="acc_type2">@marinavalentine</a></p>
+              <p class="user-status-text small"><a href="#" id="acc_type2">@student</a></p>
               <!-- /USER STATUS TEXT -->
             </div>
             <!-- /USER STATUS -->
@@ -909,7 +909,7 @@
 <script>
 	// cookie fndef script
 	api_url="https://student.tredcode.com"
-	root="http://localhost/tci-students-dev"
+	root="https://tcistudents.com/"
 
 	function setCookie(cname, cvalue, exdays) {
 		const d = new Date();
@@ -1063,6 +1063,17 @@
  		});
 	}
 
+	function linkify(text) {
+		var urlRegex = /(https?:\/\/[^\s]+)/g;
+		return text.replace(urlRegex, function(url) {
+			return '<a class="linkified_a" href="'+url+'" target="_blank">' + url + '</a>';
+		})
+		// or alternatively
+		// return text.replace(urlRegex, '<a href="$1">$1</a>')
+	}
+
+	function per(num, amount){return num*amount/100;}
+
 	admin_verify=()=>{
 		let email=getCookie("user")
 		$.post(api_url+"/verify_admin",{email:email}, function(data, status){
@@ -1088,16 +1099,6 @@
 		});
 	}
 
-	function linkify(text) {
-		var urlRegex = /(https?:\/\/[^\s]+)/g;
-		return text.replace(urlRegex, function(url) {
-			return '<a class="linkified_a" href="'+url+'" target="_blank">' + url + '</a>';
-		})
-		// or alternatively
-		// return text.replace(urlRegex, '<a href="$1">$1</a>')
-	}
-
-	function per(num, amount){return num*amount/100;}
 
 	detect_acc_type=()=>{
 		let email=getCookie("user")
@@ -1125,8 +1126,7 @@
 
 	get_avatar=()=>{
 		let email=getCookie("user")
-		let temp_url="http://127.0.0.1:5000"
-		$.post(temp_url+"/get_avatar" ,{email:email}, function(data, status){
+		$.post(api_url+"/get_avatar" ,{email:email}, function(data, status){
 			data=data[0]
 			$("#avatar_big,#avatar_small,#avatar_mob").attr("src",data[0])
 
@@ -1152,7 +1152,7 @@
 
 		});
 
-		// admin_verify()
+		admin_verify()
 		detect_acc_type()
 		// refresh()
 		get_link()
