@@ -1577,10 +1577,10 @@
 		// get count
 		var offset_arr=get_total_count()
 		var offset=offset_arr[pgno-1]
+		console.log("offset:"+offset)
 
 		gen_pagination_strip(pgno,offset_arr) //make me async
 
-		$.ajaxSetup({async:true});
 		$("#post_append .product-preview").remove() //just temp remove me when all done
 		$.post(api_url+"/get_all_posts" ,{email:email,filter:filter,offset:offset}, function(data, status){
 			// console.log("Data "+data)
@@ -1606,6 +1606,7 @@
 			$("#loadbars").hide()
 
 		});
+		$.ajaxSetup({async:true});
 	}
 
 	gen_paginator_arr=(sel,pg_arr)=>{
