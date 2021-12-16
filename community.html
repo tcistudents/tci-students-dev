@@ -1596,7 +1596,7 @@
 
 				data[i][2]=shorten(data[i][2])
 
-				var str='<div class="product-preview"><a href="javascript:;" name="'+data[i][0]+'" onclick=get_single_post(this.name)><figure class="product-preview-image liquid"><img alt="image" src="'+data[i][5]+'"></figure></a>'
+				var str='<div class="product-preview"><a href="javascript:;" name="'+data[i][0]+'" onclick=get_single_post(this.name)><figure class="product-preview-image liquid"><img class="view_post_small" alt="image" src="'+data[i][5]+'"></figure></a>'
 				str+='<div class="product-preview-info"><p class="text-sticker pointer noselect" name="'+data[i][0]+'" onclick="like_toggle(this)"><span class="hrt '+spl+'">❤</span> <span class="hrt_count">'+data[i][6]+'</span></p>'
 				str+='<p class="product-preview-title"><a name="'+data[i][0]+'" href="javascript:;" onclick=get_single_post(this.name)>'+data[i][1]+'</a></p><p class="product-preview-category digital"><a href="javascript:;" name="'+data[i][0]+'" onclick=get_single_post(this.name) >'+data[i][4]+'</a></p>'
 				str+='<p class="product-preview-text">'+data[i][2]+'</p>	</div></div>'

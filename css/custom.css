@@ -58,6 +58,12 @@
 	height: 450px;
 	object-fit: contain;
 }
+.view_post_small{
+	object-fit: contain;
+	background-color: lightcoral;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
 
 .avatar_select{
 	cursor:pointer;
