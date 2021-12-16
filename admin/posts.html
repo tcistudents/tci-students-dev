@@ -144,7 +144,7 @@
 				});
 			}
 
-			get_to_be_approved=()=>{
+			get_to_be_approved_table=()=>{
 				// $("#post_append div").remove() //just temp remove me when all done
 				let email=getCookie("user")
 				$.post(api_url+"/get_to_be_approved" ,{email:email}, function(data, status){
@@ -306,7 +306,7 @@
 
 		<div class="col-md-12 bg-color mx-auto p-4 mb-4 rounded">
 			<div class="mb-1">
-				<span class="h4">Post to be Reviewed</span> <button onclick="get_to_be_approved()">Load Table</button>
+				<span class="h4">Post to be Reviewed</span> <button onclick="get_to_be_approved_table()">Load Table</button>
 			</div>
 			<table id="table" class="display" style="width:100%">
 			    <thead>
