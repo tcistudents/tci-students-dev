@@ -248,7 +248,26 @@
 
 			action=(id)=>{
 				let ts=(id.split("_"))[1]
-				delete_post("del_single",ts)
+				console.log("del_post_table ts:"+ts)
+				delete_post_table("del_single",ts)
+			}
+
+			delete_post_table=(action="del_single",ts=global_curr_post_ts)=>{
+				// $("#post_append div").remove() //just temp remove me when all done
+				if (action=="del_all_unapproved") {
+					if ($("#safety_approve_del").is(':checked')) {}
+					else {alert("Please Check the Safety Checkbox");return}
+				}
+				else if (action=="del_all_db") {
+					if ($("#safety_all_del").is(':checked')) {}
+					else {alert("Please Check the Safety Checkbox");return}
+				}
+
+				let email=getCookie("user")
+				$.post(api_url+"/delete_post" ,{email:email,timestamp:ts,action:action}, function(data, status){
+					alert("Data "+data)
+				});
+
 			}
 
 			delete_post=(action="del_single",ts=global_curr_post_ts)=>{
