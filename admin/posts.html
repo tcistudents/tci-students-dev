@@ -257,8 +257,8 @@
 			}
 
 			notf_fade=()=>{
-				$("#success_notification").fadeIn(400)
-				$("#success_notification").fadeOut(500)
+				$("#success_notification").fadeIn(1500)
+				$("#success_notification").fadeOut(2500)
 			}
 
 			delete_post_table=(action="del_single",ts=global_curr_post_ts)=>{
@@ -326,7 +326,7 @@
 		</script>
 		<style media="screen">
 			#success_notification{
-				position: absolute;
+				position: fixed;
 				top:10%;
 				left: 44%;
 				z-index: 5;
