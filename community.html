@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+	<meta name="robots" content="noindex">
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
@@ -894,11 +895,11 @@
               <label for="items-filter-category">Filter By</label>
               <select id="items-filter-category" name="items_filter_category">
                 <option value="all">All Categories</option>
-                <option value="pnl">Pnl</option>
-								<option value="chart">Chart</option>
-								<option value="investment">Investment</option>
-								<option value="tool">Tool</option>
-								<option value="trading">Trading</option>
+								<option value="pnl">Pnl</option>
+								<option value="ti">Trading/Investing Setup</option>
+								<option value="quotes">Market Quotes</option>
+								<option value="memes">Memes</option>
+								<option value="ca">Chart Analysis</option>
 
               </select>
               <!-- FORM SELECT ICON -->
@@ -1510,6 +1511,7 @@
 
 			$("#post_time_push").text(ts)
 			$("#post_topic_push").text(data[0][1])
+			$("#post_tag_push").text(data[0][4])
 			$("#post_msg_push").text(data[0][2])
 			$("#post_img").attr("src",data[0][5])
 			$("#post_img_a").attr("href",data[0][5])
