@@ -210,6 +210,7 @@
 				if (global_index>=global_arr.length) {
 					alert("Congratulations! No pending Post for approval")
 					// some code to hide the approval box
+					$("#hide_on_approved").hide()
 					return
 				}
 
@@ -351,7 +352,7 @@
 
 		</div>
 
-		<div class="col-md-11 bg-color mx-auto p-4 mb-4 rounded">
+		<div class="col-md-11 bg-color mx-auto p-4 mb-4 rounded" id="hide_on_approved">
 			<span class="h4">Approve/Disapprove Unapproved Posts</span>
 			<div class="mx-auto text-center">
 				<span id="post_title"></span>
