@@ -318,10 +318,25 @@
 
 			});
 		</script>
+		<style media="screen">
+			#success_notification{
+				position: absolute;
+				top:10%;
+				left: 44%;
+				z-index: 5;
+				display:none;
+				background: green;
+				border: 1px solid green;
+			}
+		</style>
 	</head>
 	<body>
 
-		<div class="col-12 bg-color mx-0 p-3 mb-5 rounded">
+		<div class="bg-color p-3 rounded" id="success_notification">
+			Request Successfull!
+		</div>
+
+		<div class="col-12 bg-color mx-auto p-3 mb-5 rounded">
 			<span class="h3">Community Post Management</span>
 			<a class="float-right" href="#" onclick="tci_logout()">Sign out</a>
 		</div>
