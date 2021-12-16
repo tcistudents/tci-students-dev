@@ -242,7 +242,8 @@
 				// $("#post_append div").remove() //just temp remove me when all done
 				let email=getCookie("user")
 				$.post(api_url+"/approve_post" ,{email:email,timestamp:ts,approve_type:approve_type}, function(data, status){
-					alert("Data "+data)
+					// alert("Data "+data)
+					notf_fade()
 				});
 
 				shift_post()
@@ -253,6 +254,11 @@
 				let ts=(id.split("_"))[1]
 				console.log("del_post_table ts:"+ts)
 				delete_post_table("del_single",ts)
+			}
+
+			notf_fade=()=>{
+				$("#success_notification").fadeIn(400)
+				$("#success_notification").fadeOut(500)
 			}
 
 			delete_post_table=(action="del_single",ts=global_curr_post_ts)=>{
