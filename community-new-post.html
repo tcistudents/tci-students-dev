@@ -981,10 +981,7 @@
 	}
 
 	refresh=()=>{
-		if (checkCookie("user")) {
-			get_link()
-			get_msg()
-		}
+		if (checkCookie("user")) {}
 		else {
 			window.location.replace(root);
 		}
