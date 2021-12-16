@@ -264,7 +264,7 @@
 				}
 
 				let email=getCookie("user")
-				$.post(api_url+"/delete_post" ,{email:email,timestamp:ts,action:action}, function(data, status){
+				$.post(api_url+"/delete_post" ,{email:email,timestamp:ts,del_type:action}, function(data, status){
 					alert("Data "+data)
 				});
 
@@ -282,7 +282,7 @@
 				}
 
 				let email=getCookie("user")
-				$.post(api_url+"/delete_post" ,{email:email,timestamp:ts,action:action}, function(data, status){
+				$.post(api_url+"/delete_post" ,{email:email,timestamp:ts,del_type:action}, function(data, status){
 					alert("Data "+data)
 				});
 
