@@ -46,11 +46,16 @@
 }
 
 .post_img_container{
-	background-color: lightgrey;
+	background-color: aliceblue;
 }
 #post_img{
-	width: 250px;
-	height: 250px;
+	width: 400px;
+	height: 400px;
+	object-fit: contain;
+}
+#admin_post_img{
+	width: 450px;
+	height: 450px;
 	object-fit: contain;
 }
 
