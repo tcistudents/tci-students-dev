@@ -114,7 +114,7 @@
 				// $("#post_append div").remove() //just temp remove me when all done
 				let email=getCookie("user")
 				$.post(api_url+"/get_all_posts" ,{email:email,admin_fetch:"y"}, function(data, status){
-					console.log("Data "+data)
+					// console.log("Data "+data)
 
 					for (var i = 0; i < data.length; i++) {
 
@@ -150,7 +150,7 @@
 				// $("#post_append div").remove() //just temp remove me when all done
 				let email=getCookie("user")
 				$.post(api_url+"/get_to_be_approved" ,{email:email}, function(data, status){
-					console.log("Data "+data)
+					// console.log("Data "+data)
 
 					for (var i = 0; i < data.length; i++) {
 
@@ -186,7 +186,7 @@
 				// $("#post_append div").remove() //just temp remove me when all done
 				let email=getCookie("user")
 				$.post(api_url+"/get_to_be_approved" ,{email:email}, function(data, status){
-					console.log("Data "+data)
+					// console.log("Data "+data)
 
 					for (var i = 0; i < data.length; i++) {
 
@@ -216,9 +216,9 @@
 
 				var data=global_arr[global_index]
 				global_curr_post_ts=data[8]
-				console.log("Current dataframe:"+global_arr[global_index])
-				console.log("Current index:"+global_index)
-				console.log("Current uqid:"+global_curr_post_ts)
+				// console.log("Current dataframe:"+global_arr[global_index])
+				// console.log("Current index:"+global_index)
+				// console.log("Current uqid:"+global_curr_post_ts)
 
 				let status=data[7]
 				if (data[7]=="N") {status="Waiting for approval"}
@@ -320,6 +320,8 @@
 				refresh()
 				admin_verify()
 				get_to_be_approved()
+				get_to_be_approved_table()
+				get_all_post()
 
 
 			});
