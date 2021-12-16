@@ -46,7 +46,7 @@
 }
 
 .post_img_container{
-	background-color: aliceblue;
+	background-color: white;
 }
 #post_img{
 	width: 450px;
@@ -60,7 +60,7 @@
 }
 .view_post_small{
 	object-fit: contain;
-	background-color: lightcoral;
+	background-color: white;
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;
 }
